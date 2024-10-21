@@ -18,31 +18,6 @@ npm install sendx-javascript-sdk --save
 ```
 
 
-
-To use the library locally without publishing to a remote npm registry, first install the dependencies by changing into the directory containing `package.json` (and this README). Let's call this `JAVASCRIPT_CLIENT_DIR`. Then run:
-
-```shell
-npm install
-```
-
-Next, [link](https://docs.npmjs.com/cli/link) it globally in npm with the following, also from `JAVASCRIPT_CLIENT_DIR`:
-
-```shell
-npm link
-```
-
-To use the link you just defined in your project, switch to the directory you want to use your sendx-javascript-sdk from, and run:
-
-```shell
-npm link /path/to/<JAVASCRIPT_CLIENT_DIR>
-```
-
-Finally, you need to build the module:
-
-```shell
-npm run build
-```
-
 ### For browser
 
 The library also works in the browser environment via npm and [browserify](http://browserify.org/). After following

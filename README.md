@@ -53,23 +53,30 @@ module: {
 Please follow the [installation](#installation) instruction and execute the following JS code:
 
 ```javascript
-var sendx = require('sendx-javascript-sdk');
-
-var defaultClient = sendx.ApiClient.instance;
+import sendx from 'sendx-javascript-sdk';
+let defaultClient = sendx.ApiClient.instance;
 // Configure API key authorization: apiKeyAuth
-var apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = "YOUR API KEY"
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix['X-Team-ApiKey'] = "Token"
+let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
+apiKeyAuth.apiKey = 'YOUR API KEY';
 
-var api = new sendx.CampaignApi()
-var campaignRequest = new sendx.CampaignRequest(); // {CampaignRequest} The campaign content
-api.createCampaign(campaignRequest).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
+
+let apiInstance = new sendx.ContactApi(); // ContactApi |
+let contactRequest = new sendx.ContactRequest(); // ContactRequest |
+
+contactRequest.email = "jane@doe.com";
+contactRequest.firstName = "Jane";
+contactRequest.lastName = "Doe"; 
+contactRequest.company = "Tech Solutions Inc.";
+contactRequest.lastTrackedIp = "34.94.159.140";
+contactRequest.customFields = { "1231nfenife213": "VIP", "1434bife23bfij32": "Special Offer Subscriber" };
+contactRequest.lists = ["234b324bjed32", "234bij3e2eyv3v2i"];
+contactRequest.tags = ["234bijn2ei2jbu4", "2342bijhb2ijneni"]; 
+
+apiInstance.createContact(contactRequest).then((data) => {
+    console.log('API called successfully. Contact created: ' + JSON.stringify(data, null, 2));
+}, (error) => {
+    console.error(error);
 });
-
 
 ```
 

@@ -87,18 +87,18 @@ export default class ContactApi {
     /**
      * Delete Contact
      * Deletes Contact
-     * @param {String} contactId The Contact ID to delete
+     * @param {String} identifier The Contact ID/ Email to delete
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Response} and HTTP response
      */
-    deleteContactWithHttpInfo(contactId) {
+    deleteContactWithHttpInfo(identifier) {
       let postBody = null;
-      // verify the required parameter 'contactId' is set
-      if (contactId === undefined || contactId === null) {
-        throw new Error("Missing the required parameter 'contactId' when calling deleteContact");
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling deleteContact");
       }
 
       let pathParams = {
-        'contactId': contactId
+        'identifier': identifier
       };
       let queryParams = {
       };
@@ -112,7 +112,7 @@ export default class ContactApi {
       let accepts = ['application/json'];
       let returnType = Response;
       return this.apiClient.callApi(
-        '/contact/{contactId}', 'DELETE',
+        '/contact/{identifier}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -121,11 +121,11 @@ export default class ContactApi {
     /**
      * Delete Contact
      * Deletes Contact
-     * @param {String} contactId The Contact ID to delete
+     * @param {String} identifier The Contact ID/ Email to delete
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Response}
      */
-    deleteContact(contactId) {
-      return this.deleteContactWithHttpInfo(contactId)
+    deleteContact(identifier) {
+      return this.deleteContactWithHttpInfo(identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -189,20 +189,20 @@ export default class ContactApi {
 
 
     /**
-     * Get Contact by ID
-     * Retrieve a specific contact by its contactId.
-     * @param {String} contactId The ID of the contact to retrieve.
+     * Get Contact by Identifier
+     * Retrieve a specific contact by its identifier.
+     * @param {String} identifier The ID or Email of the contact to retrieve.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Contact} and HTTP response
      */
-    getContactByIdWithHttpInfo(contactId) {
+    getContactByIdWithHttpInfo(identifier) {
       let postBody = null;
-      // verify the required parameter 'contactId' is set
-      if (contactId === undefined || contactId === null) {
-        throw new Error("Missing the required parameter 'contactId' when calling getContactById");
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling getContactById");
       }
 
       let pathParams = {
-        'contactId': contactId
+        'identifier': identifier
       };
       let queryParams = {
       };
@@ -216,20 +216,20 @@ export default class ContactApi {
       let accepts = ['application/json'];
       let returnType = Contact;
       return this.apiClient.callApi(
-        '/contact/{contactId}', 'GET',
+        '/contact/{identifier}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Get Contact by ID
-     * Retrieve a specific contact by its contactId.
-     * @param {String} contactId The ID of the contact to retrieve.
+     * Get Contact by Identifier
+     * Retrieve a specific contact by its identifier.
+     * @param {String} identifier The ID or Email of the contact to retrieve.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Contact}
      */
-    getContactById(contactId) {
-      return this.getContactByIdWithHttpInfo(contactId)
+    getContactById(identifier) {
+      return this.getContactByIdWithHttpInfo(identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -239,18 +239,18 @@ export default class ContactApi {
     /**
      * Unsubscribe Contact
      * Unsubscribe a globally existing contact
-     * @param {String} contactId The Contact ID to unsubscribe
+     * @param {String} identifier The Contact ID or email to unsubscribe
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Response} and HTTP response
      */
-    unsubscribeContactWithHttpInfo(contactId) {
+    unsubscribeContactWithHttpInfo(identifier) {
       let postBody = null;
-      // verify the required parameter 'contactId' is set
-      if (contactId === undefined || contactId === null) {
-        throw new Error("Missing the required parameter 'contactId' when calling unsubscribeContact");
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling unsubscribeContact");
       }
 
       let pathParams = {
-        'contactId': contactId
+        'identifier': identifier
       };
       let queryParams = {
       };
@@ -264,7 +264,7 @@ export default class ContactApi {
       let accepts = ['application/json'];
       let returnType = Response;
       return this.apiClient.callApi(
-        '/contact/unsubscribe/{contactId}', 'POST',
+        '/contact/unsubscribe/{identifier}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -273,11 +273,11 @@ export default class ContactApi {
     /**
      * Unsubscribe Contact
      * Unsubscribe a globally existing contact
-     * @param {String} contactId The Contact ID to unsubscribe
+     * @param {String} identifier The Contact ID or email to unsubscribe
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Response}
      */
-    unsubscribeContact(contactId) {
-      return this.unsubscribeContactWithHttpInfo(contactId)
+    unsubscribeContact(identifier) {
+      return this.unsubscribeContactWithHttpInfo(identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -288,22 +288,22 @@ export default class ContactApi {
      * Update Contact
      * Update Contact with given data
      * @param {module:sendx/model/ContactRequest} contactRequest 
-     * @param {String} contactId The ID of the Contact to update
+     * @param {String} identifier The ID or email of the Contact to update
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Contact} and HTTP response
      */
-    updateContactWithHttpInfo(contactRequest, contactId) {
+    updateContactWithHttpInfo(contactRequest, identifier) {
       let postBody = contactRequest;
       // verify the required parameter 'contactRequest' is set
       if (contactRequest === undefined || contactRequest === null) {
         throw new Error("Missing the required parameter 'contactRequest' when calling updateContact");
       }
-      // verify the required parameter 'contactId' is set
-      if (contactId === undefined || contactId === null) {
-        throw new Error("Missing the required parameter 'contactId' when calling updateContact");
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling updateContact");
       }
 
       let pathParams = {
-        'contactId': contactId
+        'identifier': identifier
       };
       let queryParams = {
       };
@@ -317,7 +317,7 @@ export default class ContactApi {
       let accepts = ['application/json'];
       let returnType = Contact;
       return this.apiClient.callApi(
-        '/contact/{contactId}', 'PUT',
+        '/contact/{identifier}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -327,11 +327,11 @@ export default class ContactApi {
      * Update Contact
      * Update Contact with given data
      * @param {module:sendx/model/ContactRequest} contactRequest 
-     * @param {String} contactId The ID of the Contact to update
+     * @param {String} identifier The ID or email of the Contact to update
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Contact}
      */
-    updateContact(contactRequest, contactId) {
-      return this.updateContactWithHttpInfo(contactRequest, contactId)
+    updateContact(contactRequest, identifier) {
+      return this.updateContactWithHttpInfo(contactRequest, identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

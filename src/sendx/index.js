@@ -19,22 +19,31 @@ import CampaignRequest from './model/CampaignRequest';
 import Contact from './model/Contact';
 import ContactRequest from './model/ContactRequest';
 import CreateResponse from './model/CreateResponse';
+import CustomEventRequest from './model/CustomEventRequest';
 import DashboardStats from './model/DashboardStats';
 import DeleteCampaign200Response from './model/DeleteCampaign200Response';
 import DeleteRequest from './model/DeleteRequest';
 import DeleteResponse from './model/DeleteResponse';
+import EventResponse from './model/EventResponse';
+import IdentifyRequest from './model/IdentifyRequest';
+import IdentifyResponse from './model/IdentifyResponse';
 import LastSentCampaignStat from './model/LastSentCampaignStat';
 import ListModel from './model/ListModel';
 import ListRequest from './model/ListRequest';
 import ReportData from './model/ReportData';
 import Response from './model/Response';
+import RevenueEventRequest from './model/RevenueEventRequest';
 import Sender from './model/Sender';
 import SenderRequest from './model/SenderRequest';
 import SenderResponse from './model/SenderResponse';
 import Tag from './model/Tag';
 import TagRequest from './model/TagRequest';
+import TrackRequest from './model/TrackRequest';
+import TrackResponse from './model/TrackResponse';
 import CampaignApi from './api/CampaignApi';
 import ContactApi from './api/ContactApi';
+import EventApi from './api/EventApi';
+import GettingStartedApi from './api/GettingStartedApi';
 import ListApi from './api/ListApi';
 import ReportsApi from './api/ReportsApi';
 import SenderApi from './api/SenderApi';
@@ -116,6 +125,12 @@ export {
     CreateResponse,
 
     /**
+     * The CustomEventRequest model constructor.
+     * @property {module:sendx/model/CustomEventRequest}
+     */
+    CustomEventRequest,
+
+    /**
      * The DashboardStats model constructor.
      * @property {module:sendx/model/DashboardStats}
      */
@@ -138,6 +153,24 @@ export {
      * @property {module:sendx/model/DeleteResponse}
      */
     DeleteResponse,
+
+    /**
+     * The EventResponse model constructor.
+     * @property {module:sendx/model/EventResponse}
+     */
+    EventResponse,
+
+    /**
+     * The IdentifyRequest model constructor.
+     * @property {module:sendx/model/IdentifyRequest}
+     */
+    IdentifyRequest,
+
+    /**
+     * The IdentifyResponse model constructor.
+     * @property {module:sendx/model/IdentifyResponse}
+     */
+    IdentifyResponse,
 
     /**
      * The LastSentCampaignStat model constructor.
@@ -170,6 +203,12 @@ export {
     Response,
 
     /**
+     * The RevenueEventRequest model constructor.
+     * @property {module:sendx/model/RevenueEventRequest}
+     */
+    RevenueEventRequest,
+
+    /**
      * The Sender model constructor.
      * @property {module:sendx/model/Sender}
      */
@@ -200,6 +239,18 @@ export {
     TagRequest,
 
     /**
+     * The TrackRequest model constructor.
+     * @property {module:sendx/model/TrackRequest}
+     */
+    TrackRequest,
+
+    /**
+     * The TrackResponse model constructor.
+     * @property {module:sendx/model/TrackResponse}
+     */
+    TrackResponse,
+
+    /**
     * The CampaignApi service constructor.
     * @property {module:sendx/api/CampaignApi}
     */
@@ -210,6 +261,18 @@ export {
     * @property {module:sendx/api/ContactApi}
     */
     ContactApi,
+
+    /**
+    * The EventApi service constructor.
+    * @property {module:sendx/api/EventApi}
+    */
+    EventApi,
+
+    /**
+    * The GettingStartedApi service constructor.
+    * @property {module:sendx/api/GettingStartedApi}
+    */
+    GettingStartedApi,
 
     /**
     * The ListApi service constructor.

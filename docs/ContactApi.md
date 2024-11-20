@@ -5,11 +5,11 @@ All URIs are relative to *https://api.sendx.io/api/v1/rest*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createContact**](ContactApi.md#createContact) | **POST** /contact | Create a contact
-[**deleteContact**](ContactApi.md#deleteContact) | **DELETE** /contact/{contactId} | Delete Contact
+[**deleteContact**](ContactApi.md#deleteContact) | **DELETE** /contact/{identifier} | Delete Contact
 [**getAllContacts**](ContactApi.md#getAllContacts) | **GET** /contact | Get All Contacts
-[**getContactById**](ContactApi.md#getContactById) | **GET** /contact/{contactId} | Get Contact by ID
-[**unsubscribeContact**](ContactApi.md#unsubscribeContact) | **POST** /contact/unsubscribe/{contactId} | Unsubscribe Contact
-[**updateContact**](ContactApi.md#updateContact) | **PUT** /contact/{contactId} | Update Contact
+[**getContactById**](ContactApi.md#getContactById) | **GET** /contact/{identifier} | Get Contact by Identifier
+[**unsubscribeContact**](ContactApi.md#unsubscribeContact) | **POST** /contact/unsubscribe/{identifier} | Unsubscribe Contact
+[**updateContact**](ContactApi.md#updateContact) | **PUT** /contact/{identifier} | Update Contact
 
 
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ## deleteContact
 
-> Response deleteContact(contactId)
+> Response deleteContact(identifier)
 
 Delete Contact
 
@@ -83,8 +83,8 @@ apiKeyAuth.apiKey = 'YOUR API KEY';
 //apiKeyAuth.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ContactApi();
-let contactId = "contactId_example"; // String | The Contact ID to delete
-apiInstance.deleteContact(contactId).then((data) => {
+let identifier = "identifier_example"; // String | The Contact ID/ Email to delete
+apiInstance.deleteContact(identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -97,7 +97,7 @@ apiInstance.deleteContact(contactId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactId** | **String**| The Contact ID to delete | 
+ **identifier** | **String**| The Contact ID/ Email to delete | 
 
 ### Return type
 
@@ -173,11 +173,11 @@ Name | Type | Description  | Notes
 
 ## getContactById
 
-> Contact getContactById(contactId)
+> Contact getContactById(identifier)
 
-Get Contact by ID
+Get Contact by Identifier
 
-Retrieve a specific contact by its contactId.
+Retrieve a specific contact by its identifier.
 
 ### Example
 
@@ -191,8 +191,8 @@ apiKeyAuth.apiKey = 'YOUR API KEY';
 //apiKeyAuth.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ContactApi();
-let contactId = "sendxid123"; // String | The ID of the contact to retrieve.
-apiInstance.getContactById(contactId).then((data) => {
+let identifier = "john@doe.com"; // String | The ID or Email of the contact to retrieve.
+apiInstance.getContactById(identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -205,7 +205,7 @@ apiInstance.getContactById(contactId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactId** | **String**| The ID of the contact to retrieve. | 
+ **identifier** | **String**| The ID or Email of the contact to retrieve. | 
 
 ### Return type
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## unsubscribeContact
 
-> Response unsubscribeContact(contactId)
+> Response unsubscribeContact(identifier)
 
 Unsubscribe Contact
 
@@ -241,8 +241,8 @@ apiKeyAuth.apiKey = 'YOUR API KEY';
 //apiKeyAuth.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ContactApi();
-let contactId = "sendx123"; // String | The Contact ID to unsubscribe
-apiInstance.unsubscribeContact(contactId).then((data) => {
+let identifier = "sendx123"; // String | The Contact ID or email to unsubscribe
+apiInstance.unsubscribeContact(identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -255,7 +255,7 @@ apiInstance.unsubscribeContact(contactId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactId** | **String**| The Contact ID to unsubscribe | 
+ **identifier** | **String**| The Contact ID or email to unsubscribe | 
 
 ### Return type
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ## updateContact
 
-> Contact updateContact(contactRequest, contactId)
+> Contact updateContact(contactRequest, identifier)
 
 Update Contact
 
@@ -292,8 +292,8 @@ apiKeyAuth.apiKey = 'YOUR API KEY';
 
 let apiInstance = new sendx.ContactApi();
 let contactRequest = new sendx.ContactRequest(); // ContactRequest | 
-let contactId = "sendxid123"; // String | The ID of the Contact to update
-apiInstance.updateContact(contactRequest, contactId).then((data) => {
+let identifier = "sendxid123"; // String | The ID or email of the Contact to update
+apiInstance.updateContact(contactRequest, identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -307,7 +307,7 @@ apiInstance.updateContact(contactRequest, contactId).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **contactRequest** | [**ContactRequest**](ContactRequest.md)|  | 
- **contactId** | **String**| The ID of the Contact to update | 
+ **identifier** | **String**| The ID or email of the Contact to update | 
 
 ### Return type
 

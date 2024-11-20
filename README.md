@@ -92,11 +92,15 @@ Class | Method | HTTP request | Description
 *sendx.CampaignApi* | [**getAllCampaigns**](docs/CampaignApi.md#getAllCampaigns) | **GET** /campaign | Get All Campaigns
 *sendx.CampaignApi* | [**getCampaignById**](docs/CampaignApi.md#getCampaignById) | **GET** /campaign/{campaignId} | Get Campaign By Id
 *sendx.ContactApi* | [**createContact**](docs/ContactApi.md#createContact) | **POST** /contact | Create a contact
-*sendx.ContactApi* | [**deleteContact**](docs/ContactApi.md#deleteContact) | **DELETE** /contact/{contactId} | Delete Contact
+*sendx.ContactApi* | [**deleteContact**](docs/ContactApi.md#deleteContact) | **DELETE** /contact/{identifier} | Delete Contact
 *sendx.ContactApi* | [**getAllContacts**](docs/ContactApi.md#getAllContacts) | **GET** /contact | Get All Contacts
-*sendx.ContactApi* | [**getContactById**](docs/ContactApi.md#getContactById) | **GET** /contact/{contactId} | Get Contact by ID
-*sendx.ContactApi* | [**unsubscribeContact**](docs/ContactApi.md#unsubscribeContact) | **POST** /contact/unsubscribe/{contactId} | Unsubscribe Contact
-*sendx.ContactApi* | [**updateContact**](docs/ContactApi.md#updateContact) | **PUT** /contact/{contactId} | Update Contact
+*sendx.ContactApi* | [**getContactById**](docs/ContactApi.md#getContactById) | **GET** /contact/{identifier} | Get Contact by Identifier
+*sendx.ContactApi* | [**unsubscribeContact**](docs/ContactApi.md#unsubscribeContact) | **POST** /contact/unsubscribe/{identifier} | Unsubscribe Contact
+*sendx.ContactApi* | [**updateContact**](docs/ContactApi.md#updateContact) | **PUT** /contact/{identifier} | Update Contact
+*sendx.EventApi* | [**createRevenueEvent**](docs/EventApi.md#createRevenueEvent) | **POST** /events/revenue | Record a revenue event for a specific contact
+*sendx.EventApi* | [**pushCustomEvent**](docs/EventApi.md#pushCustomEvent) | **POST** /events/custom | Push a custom event associated with a contact
+*sendx.GettingStartedApi* | [**identifyContact**](docs/GettingStartedApi.md#identifyContact) | **POST** /contact/identify | Identify contact
+*sendx.GettingStartedApi* | [**trackingContact**](docs/GettingStartedApi.md#trackingContact) | **POST** /contact/track | Add Tracking info
 *sendx.ListApi* | [**createList**](docs/ListApi.md#createList) | **POST** /list | Create List
 *sendx.ListApi* | [**deleteList**](docs/ListApi.md#deleteList) | **DELETE** /list/{listId} | Delete List
 *sendx.ListApi* | [**getAllLists**](docs/ListApi.md#getAllLists) | **GET** /list | Get All Lists
@@ -120,20 +124,27 @@ Class | Method | HTTP request | Description
  - [sendx.Contact](docs/Contact.md)
  - [sendx.ContactRequest](docs/ContactRequest.md)
  - [sendx.CreateResponse](docs/CreateResponse.md)
+ - [sendx.CustomEventRequest](docs/CustomEventRequest.md)
  - [sendx.DashboardStats](docs/DashboardStats.md)
  - [sendx.DeleteCampaign200Response](docs/DeleteCampaign200Response.md)
  - [sendx.DeleteRequest](docs/DeleteRequest.md)
  - [sendx.DeleteResponse](docs/DeleteResponse.md)
+ - [sendx.EventResponse](docs/EventResponse.md)
+ - [sendx.IdentifyRequest](docs/IdentifyRequest.md)
+ - [sendx.IdentifyResponse](docs/IdentifyResponse.md)
  - [sendx.LastSentCampaignStat](docs/LastSentCampaignStat.md)
  - [sendx.ListModel](docs/ListModel.md)
  - [sendx.ListRequest](docs/ListRequest.md)
  - [sendx.ReportData](docs/ReportData.md)
  - [sendx.Response](docs/Response.md)
+ - [sendx.RevenueEventRequest](docs/RevenueEventRequest.md)
  - [sendx.Sender](docs/Sender.md)
  - [sendx.SenderRequest](docs/SenderRequest.md)
  - [sendx.SenderResponse](docs/SenderResponse.md)
  - [sendx.Tag](docs/Tag.md)
  - [sendx.TagRequest](docs/TagRequest.md)
+ - [sendx.TrackRequest](docs/TrackRequest.md)
+ - [sendx.TrackResponse](docs/TrackResponse.md)
 
 
 ## Documentation for Authorization

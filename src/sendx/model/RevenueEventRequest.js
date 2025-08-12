@@ -1,9 +1,9 @@
 /**
  * SendX REST API
- * # Introduction SendX is an email marketing product. It helps you convert website visitors to customers, send them promotional emails, engage with them using drip sequences and craft custom journeys using powerful but simple automations. The SendX API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs. The SendX Rest API doesn’t support bulk updates. You can work on only one object per request. <br> 
+ * # SendX REST API Documentation  ## 🚀 Introduction  The SendX API is organized around REST principles. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.  **Key Features:** - 🔒 **Security**: Team-based authentication with optional member-level access - 🎯 **Resource-Oriented**: RESTful design with clear resource boundaries - 📊 **Rich Data Models**: Three-layer model system (Input/Output/Internal) - 🔗 **Relationships**: Automatic prefix handling for resource relationships - 📈 **Scalable**: Built for high-volume email marketing operations  ## 🏗️ Architecture Overview  SendX uses a three-layer model architecture:  1. **Input Models** (`RestE*`): For API requests 2. **Output Models** (`RestR*`): For API responses with prefixed IDs 3. **Internal Models**: Core business logic (not exposed in API)  ## 🔐 Security & Authentication  SendX uses API key authentication:  ### Team API Key ```http X-Team-ApiKey: YOUR_TEAM_API_KEY ``` - **Required for all requests** - Team-level access to resources - Available in SendX Settings → Team API Key  ## 🆔 Encrypted ID System  SendX uses encrypted IDs for security and better developer experience:  - **Internal IDs**: Sequential integers (not exposed) - **Encrypted IDs**: 22-character alphanumeric strings - **Prefixed IDs**: Resource-type prefixes in API responses (`contact_<22-char-id>`)  ### ID Format  **All resource IDs follow this pattern:** ``` <resource_prefix>_<22_character_alphanumeric_string> ```  **Example:** ```json {   \"id\": \"contact_BnKjkbBBS500CoBCP0oChQ\",   \"lists\": [\"list_OcuxJHdiAvujmwQVJfd3ss\", \"list_0tOFLp5RgV7s3LNiHrjGYs\"],   \"tags\": [\"tag_UhsDkjL772Qbj5lWtT62VK\", \"tag_fL7t9lsnZ9swvx2HrtQ9wM\"] } ```  ## 📚 Resource Prefixes  | Resource | Prefix | Example | |----------|--------|---------| | Contact | `contact_` | `contact_BnKjkbBBS500CoBCP0oChQ` | | Campaign | `campaign_` | `campaign_LUE9BTxmksSmqHWbh96zsn` | | List | `list_` | `list_OcuxJHdiAvujmwQVJfd3ss` | | Tag | `tag_` | `tag_UhsDkjL772Qbj5lWtT62VK` | | Sender | `sender_` | `sender_4vK3WFhMgvOwUNyaL4QxCD` | | Template | `template_` | `template_f3lJvTEhSjKGVb5Lwc5SWS` | | Custom Field | `field_` | `field_MnuqBAG2NPLm7PZMWbjQxt` | | Webhook | `webhook_` | `webhook_9l154iiXlZoPo7vngmamee` | | Post | `post_` | `post_XyZ123aBc456DeF789GhI` | | Post Category | `post_category_` | `post_category_YzS1wOU20yw87UUHKxMzwn` | | Post Tag | `post_tag_` | `post_tag_123XyZ456AbC` | | Member | `member_` | `member_JkL012MnO345PqR678` |  ## 🎯 Best Practices  ### Error Handling - **Always check status codes**: 2xx = success, 4xx = client error, 5xx = server error - **Read error messages**: Descriptive messages help debug issues - **Handle rate limits**: Respect API rate limits for optimal performance  ### Data Validation - **Email format**: Must be valid email addresses - **Required fields**: Check documentation for mandatory fields - **Field lengths**: Respect maximum length constraints  ### Performance - **Pagination**: Use offset/limit for large datasets - **Batch operations**: Process multiple items when supported - **Caching**: Cache responses when appropriate  ## 🛠️ SDKs & Integration  Official SDKs available for: - [Golang](https://github.com/sendx/sendx-go-sdk) - [Python](https://github.com/sendx/sendx-python-sdk) - [Ruby](https://github.com/sendx/sendx-ruby-sdk) - [Java](https://github.com/sendx/sendx-java-sdk) - [PHP](https://github.com/sendx/sendx-php-sdk) - [JavaScript](https://github.com/sendx/sendx-javascript-sdk)  ## 📞 Support  Need help? Contact us: - 💬 **Website Chat**: Available on sendx.io - 📧 **Email**: hello@sendx.io - 📚 **Documentation**: Full guides at help.sendx.io  ---  **API Endpoint:** `https://api.sendx.io/api/v1/rest`  [<img src=\"https://run.pstmn.io/button.svg\" alt=\"Run In Postman\" style=\"width: 128px; height: 32px;\">](https://god.gw.postman.com/run-collection/33476323-44b198b0-5219-4619-a01f-cfc24d573885?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33476323-44b198b0-5219-4619-a01f-cfc24d573885%26entityType%3Dcollection%26workspaceId%3D6b1e4f65-96a9-4136-9512-6266c852517e) 
  *
  * The version of the OpenAPI document: 1.0.0
- * Contact: support@sendx.io
+ * Contact: hello@sendx.io
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
  * https://openapi-generator.tech
@@ -22,15 +22,11 @@ class RevenueEventRequest {
     /**
      * Constructs a new <code>RevenueEventRequest</code>.
      * @alias module:sendx/model/RevenueEventRequest
-     * @param identifier {String} Unique identifier for the contact.
-     * @param amount {Number} Recognized revenue amount associated with the event.
-     * @param currency {String} Currency code (ISO 4217) for the revenue (e.g., 'USD', 'EUR', 'INR').
-     * @param source {String} Source of the revenue (e.g., 'website', 'mobile app', 'partner referral').
-     * @param time {Number} Unix timestamp indicating when the revenue event occurred.
+     * @param amount {Number} Revenue amount
      */
-    constructor(identifier, amount, currency, source, time) { 
+    constructor(amount) { 
         
-        RevenueEventRequest.initialize(this, identifier, amount, currency, source, time);
+        RevenueEventRequest.initialize(this, amount);
     }
 
     /**
@@ -38,12 +34,8 @@ class RevenueEventRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, identifier, amount, currency, source, time) { 
-        obj['identifier'] = identifier;
+    static initialize(obj, amount) { 
         obj['amount'] = amount;
-        obj['currency'] = currency;
-        obj['source'] = source;
-        obj['time'] = time;
     }
 
     /**
@@ -62,9 +54,6 @@ class RevenueEventRequest {
             }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('currency')) {
-                obj['currency'] = ApiClient.convertToType(data['currency'], 'String');
             }
             if (data.hasOwnProperty('source')) {
                 obj['source'] = ApiClient.convertToType(data['source'], 'String');
@@ -93,10 +82,6 @@ class RevenueEventRequest {
             throw new Error("Expected the field `identifier` to be a primitive type in the JSON string but got " + data['identifier']);
         }
         // ensure the json data is a string
-        if (data['currency'] && !(typeof data['currency'] === 'string' || data['currency'] instanceof String)) {
-            throw new Error("Expected the field `currency` to be a primitive type in the JSON string but got " + data['currency']);
-        }
-        // ensure the json data is a string
         if (data['source'] && !(typeof data['source'] === 'string' || data['source'] instanceof String)) {
             throw new Error("Expected the field `source` to be a primitive type in the JSON string but got " + data['source']);
         }
@@ -105,7 +90,7 @@ class RevenueEventRequest {
     }
 
 /**
-     * Returns Unique identifier for the contact.
+     * Returns Contact email address
      * @return {String}
      */
     getIdentifier() {
@@ -113,14 +98,14 @@ class RevenueEventRequest {
     }
 
     /**
-     * Sets Unique identifier for the contact.
-     * @param {String} identifier Unique identifier for the contact.
+     * Sets Contact email address
+     * @param {String} identifier Contact email address
      */
     setIdentifier(identifier) {
         this['identifier'] = identifier;
     }
 /**
-     * Returns Recognized revenue amount associated with the event.
+     * Returns Revenue amount
      * @return {Number}
      */
     getAmount() {
@@ -128,29 +113,14 @@ class RevenueEventRequest {
     }
 
     /**
-     * Sets Recognized revenue amount associated with the event.
-     * @param {Number} amount Recognized revenue amount associated with the event.
+     * Sets Revenue amount
+     * @param {Number} amount Revenue amount
      */
     setAmount(amount) {
         this['amount'] = amount;
     }
 /**
-     * Returns Currency code (ISO 4217) for the revenue (e.g., 'USD', 'EUR', 'INR').
-     * @return {String}
-     */
-    getCurrency() {
-        return this.currency;
-    }
-
-    /**
-     * Sets Currency code (ISO 4217) for the revenue (e.g., 'USD', 'EUR', 'INR').
-     * @param {String} currency Currency code (ISO 4217) for the revenue (e.g., 'USD', 'EUR', 'INR').
-     */
-    setCurrency(currency) {
-        this['currency'] = currency;
-    }
-/**
-     * Returns Source of the revenue (e.g., 'website', 'mobile app', 'partner referral').
+     * Returns Source of the revenue event
      * @return {String}
      */
     getSource() {
@@ -158,14 +128,14 @@ class RevenueEventRequest {
     }
 
     /**
-     * Sets Source of the revenue (e.g., 'website', 'mobile app', 'partner referral').
-     * @param {String} source Source of the revenue (e.g., 'website', 'mobile app', 'partner referral').
+     * Sets Source of the revenue event
+     * @param {String} source Source of the revenue event
      */
     setSource(source) {
         this['source'] = source;
     }
 /**
-     * Returns Unix timestamp indicating when the revenue event occurred.
+     * Returns Unix timestamp (in seconds since January 1, 1970) representing when the event occurred.
      * @return {Number}
      */
     getTime() {
@@ -173,8 +143,8 @@ class RevenueEventRequest {
     }
 
     /**
-     * Sets Unix timestamp indicating when the revenue event occurred.
-     * @param {Number} time Unix timestamp indicating when the revenue event occurred.
+     * Sets Unix timestamp (in seconds since January 1, 1970) representing when the event occurred.
+     * @param {Number} time Unix timestamp (in seconds since January 1, 1970) representing when the event occurred.
      */
     setTime(time) {
         this['time'] = time;
@@ -182,34 +152,28 @@ class RevenueEventRequest {
 
 }
 
-RevenueEventRequest.RequiredProperties = ["identifier", "amount", "currency", "source", "time"];
+RevenueEventRequest.RequiredProperties = ["amount"];
 
 /**
- * Unique identifier for the contact.
+ * Contact email address
  * @member {String} identifier
  */
 RevenueEventRequest.prototype['identifier'] = undefined;
 
 /**
- * Recognized revenue amount associated with the event.
+ * Revenue amount
  * @member {Number} amount
  */
 RevenueEventRequest.prototype['amount'] = undefined;
 
 /**
- * Currency code (ISO 4217) for the revenue (e.g., 'USD', 'EUR', 'INR').
- * @member {String} currency
- */
-RevenueEventRequest.prototype['currency'] = undefined;
-
-/**
- * Source of the revenue (e.g., 'website', 'mobile app', 'partner referral').
+ * Source of the revenue event
  * @member {String} source
  */
 RevenueEventRequest.prototype['source'] = undefined;
 
 /**
- * Unix timestamp indicating when the revenue event occurred.
+ * Unix timestamp (in seconds since January 1, 1970) representing when the event occurred.
  * @member {Number} time
  */
 RevenueEventRequest.prototype['time'] = undefined;

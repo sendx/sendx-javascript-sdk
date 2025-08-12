@@ -4,36 +4,35 @@ All URIs are relative to *https://api.sendx.io/api/v1/rest*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createCampaign**](CampaignApi.md#createCampaign) | **POST** /campaign | Create Campaign
-[**deleteCampaign**](CampaignApi.md#deleteCampaign) | **DELETE** /campaign/{campaignId} | Delete Campaign
-[**editCampaign**](CampaignApi.md#editCampaign) | **PUT** /campaign/{campaignId} | Edit Campaign
-[**getAllCampaigns**](CampaignApi.md#getAllCampaigns) | **GET** /campaign | Get All Campaigns
-[**getCampaignById**](CampaignApi.md#getCampaignById) | **GET** /campaign/{campaignId} | Get Campaign By Id
+[**createCampaign**](CampaignApi.md#createCampaign) | **POST** /campaign | Create campaign
+[**deleteCampaign**](CampaignApi.md#deleteCampaign) | **DELETE** /campaign/{identifier} | Delete campaign
+[**getAllCampaigns**](CampaignApi.md#getAllCampaigns) | **GET** /campaign | Get all campaigns
+[**getCampaign**](CampaignApi.md#getCampaign) | **GET** /campaign/{identifier} | Get campaign by ID
 
 
 
 ## createCampaign
 
-> CreateResponse createCampaign(campaignRequest)
+> RestRCampaign createCampaign(restECampaign)
 
-Create Campaign
+Create campaign
 
-Create a new email campaign
+Creates a new email campaign. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.CampaignApi();
-let campaignRequest = new sendx.CampaignRequest(); // CampaignRequest | The campaign content
-apiInstance.createCampaign(campaignRequest).then((data) => {
+let restECampaign = {"name":"Flash Sale Announcement","subject":"⚡ 24-Hour Flash Sale - {{contact.firstName}}, Save 50%!","sender":"sender_4vK3WFhMgvOwUNyaL4QxCD","previewText":"Limited time offer - Today only!","htmlCode":"<html><body><h1>Flash Sale!</h1><p>Hi {{contact.firstName}},</p><p>Don't miss our 24-hour flash sale!</p><a href='{{sale.url}}'>Shop Now</a></body></html>","plainText":"Flash Sale!\n\nHi {{contact.firstName}},\n\nDon't miss our 24-hour flash sale!\n\nShop now: {{sale.url}}","scheduleType":1,"includedLists":["list_0tOFLp5RgV7s3LNiHrjGYs","list_vUCjsUmrVXtSppS8rD0Ssq"],"excludedTags":["tag_unengaged"]}; // RestECampaign | 
+apiInstance.createCampaign(restECampaign).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -46,15 +45,15 @@ apiInstance.createCampaign(campaignRequest).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignRequest** | [**CampaignRequest**](CampaignRequest.md)| The campaign content | 
+ **restECampaign** | [**RestECampaign**](RestECampaign.md)|  | 
 
 ### Return type
 
-[**CreateResponse**](CreateResponse.md)
+[**RestRCampaign**](RestRCampaign.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -64,26 +63,26 @@ Name | Type | Description  | Notes
 
 ## deleteCampaign
 
-> DeleteCampaign200Response deleteCampaign(campaignId)
+> DeleteResponse deleteCampaign(identifier)
 
-Delete Campaign
+Delete campaign
 
-Deletes a specific campaign by its campaignId.
+Deletes a campaign. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.CampaignApi();
-let campaignId = "campaignId_example"; // String | The ID of the campaign to delete
-apiInstance.deleteCampaign(campaignId).then((data) => {
+let identifier = "identifier_example"; // String | Campaign identifier to delete
+apiInstance.deleteCampaign(identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -96,15 +95,15 @@ apiInstance.deleteCampaign(campaignId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The ID of the campaign to delete | 
+ **identifier** | **String**| Campaign identifier to delete | 
 
 ### Return type
 
-[**DeleteCampaign200Response**](DeleteCampaign200Response.md)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -112,82 +111,30 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## editCampaign
-
-> Campaign editCampaign(campaignRequest, campaignId)
-
-Edit Campaign
-
-Submit edited content for a specific campaign.
-
-### Example
-
-```javascript
-import sendx from 'sendx-javascript-sdk';
-let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
-
-let apiInstance = new sendx.CampaignApi();
-let campaignRequest = new sendx.CampaignRequest(); // CampaignRequest | 
-let campaignId = "campaignId_example"; // String | The ID of the campaign to edit
-apiInstance.editCampaign(campaignRequest, campaignId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaignRequest** | [**CampaignRequest**](CampaignRequest.md)|  | 
- **campaignId** | **String**| The ID of the campaign to edit | 
-
-### Return type
-
-[**Campaign**](Campaign.md)
-
-### Authorization
-
-[apiKeyAuth](../README.md#apiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
 ## getAllCampaigns
 
-> [Campaign] getAllCampaigns(opts)
+> [RestRCampaign] getAllCampaigns(opts)
 
-Get All Campaigns
+Get all campaigns
 
-Retrieve a list of all campaigns.
+Retrieves a paginated list of all campaigns. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.CampaignApi();
 let opts = {
-  'offset': 0, // Number | Offset for pagination
-  'limit': 20, // Number | Limit for pagination
-  'search': "search_example" // String | Search term to filter campaigns
+  'offset': 0, // Number | Number of campaigns to skip
+  'limit': 10, // Number | Maximum number of campaigns to return
+  'campaignType': "'all'" // String | Filter by campaign type
 };
 apiInstance.getAllCampaigns(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -202,17 +149,17 @@ apiInstance.getAllCampaigns(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **Number**| Offset for pagination | [optional] [default to 0]
- **limit** | **Number**| Limit for pagination | [optional] [default to 20]
- **search** | **String**| Search term to filter campaigns | [optional] 
+ **offset** | **Number**| Number of campaigns to skip | [optional] [default to 0]
+ **limit** | **Number**| Maximum number of campaigns to return | [optional] [default to 10]
+ **campaignType** | **String**| Filter by campaign type | [optional] [default to &#39;all&#39;]
 
 ### Return type
 
-[**[Campaign]**](Campaign.md)
+[**[RestRCampaign]**](RestRCampaign.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -220,28 +167,28 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## getCampaignById
+## getCampaign
 
-> Campaign getCampaignById(campaignId)
+> RestRCampaign getCampaign(identifier)
 
-Get Campaign By Id
+Get campaign by ID
 
-Retrieve a specific campaign using its ID.
+Retrieves detailed information about a specific campaign. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.CampaignApi();
-let campaignId = "campaignId_example"; // String | The ID of the campaign to retrieve.
-apiInstance.getCampaignById(campaignId).then((data) => {
+let identifier = "identifier_example"; // String | Campaign identifier - `campaign_IMBoxK2iB5sUdgiNOjqAMA` 
+apiInstance.getCampaign(identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -254,15 +201,15 @@ apiInstance.getCampaignById(campaignId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The ID of the campaign to retrieve. | 
+ **identifier** | **String**| Campaign identifier - &#x60;campaign_IMBoxK2iB5sUdgiNOjqAMA&#x60;  | 
 
 ### Return type
 
-[**Campaign**](Campaign.md)
+[**RestRCampaign**](RestRCampaign.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 

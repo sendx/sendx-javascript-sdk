@@ -1,9 +1,9 @@
 /**
  * SendX REST API
- * # Introduction SendX is an email marketing product. It helps you convert website visitors to customers, send them promotional emails, engage with them using drip sequences and craft custom journeys using powerful but simple automations. The SendX API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs. The SendX Rest API doesn’t support bulk updates. You can work on only one object per request. <br> 
+ * # SendX REST API Documentation  ## 🚀 Introduction  The SendX API is organized around REST principles. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.  **Key Features:** - 🔒 **Security**: Team-based authentication with optional member-level access - 🎯 **Resource-Oriented**: RESTful design with clear resource boundaries - 📊 **Rich Data Models**: Three-layer model system (Input/Output/Internal) - 🔗 **Relationships**: Automatic prefix handling for resource relationships - 📈 **Scalable**: Built for high-volume email marketing operations  ## 🏗️ Architecture Overview  SendX uses a three-layer model architecture:  1. **Input Models** (`RestE*`): For API requests 2. **Output Models** (`RestR*`): For API responses with prefixed IDs 3. **Internal Models**: Core business logic (not exposed in API)  ## 🔐 Security & Authentication  SendX uses API key authentication:  ### Team API Key ```http X-Team-ApiKey: YOUR_TEAM_API_KEY ``` - **Required for all requests** - Team-level access to resources - Available in SendX Settings → Team API Key  ## 🆔 Encrypted ID System  SendX uses encrypted IDs for security and better developer experience:  - **Internal IDs**: Sequential integers (not exposed) - **Encrypted IDs**: 22-character alphanumeric strings - **Prefixed IDs**: Resource-type prefixes in API responses (`contact_<22-char-id>`)  ### ID Format  **All resource IDs follow this pattern:** ``` <resource_prefix>_<22_character_alphanumeric_string> ```  **Example:** ```json {   \"id\": \"contact_BnKjkbBBS500CoBCP0oChQ\",   \"lists\": [\"list_OcuxJHdiAvujmwQVJfd3ss\", \"list_0tOFLp5RgV7s3LNiHrjGYs\"],   \"tags\": [\"tag_UhsDkjL772Qbj5lWtT62VK\", \"tag_fL7t9lsnZ9swvx2HrtQ9wM\"] } ```  ## 📚 Resource Prefixes  | Resource | Prefix | Example | |----------|--------|---------| | Contact | `contact_` | `contact_BnKjkbBBS500CoBCP0oChQ` | | Campaign | `campaign_` | `campaign_LUE9BTxmksSmqHWbh96zsn` | | List | `list_` | `list_OcuxJHdiAvujmwQVJfd3ss` | | Tag | `tag_` | `tag_UhsDkjL772Qbj5lWtT62VK` | | Sender | `sender_` | `sender_4vK3WFhMgvOwUNyaL4QxCD` | | Template | `template_` | `template_f3lJvTEhSjKGVb5Lwc5SWS` | | Custom Field | `field_` | `field_MnuqBAG2NPLm7PZMWbjQxt` | | Webhook | `webhook_` | `webhook_9l154iiXlZoPo7vngmamee` | | Post | `post_` | `post_XyZ123aBc456DeF789GhI` | | Post Category | `post_category_` | `post_category_YzS1wOU20yw87UUHKxMzwn` | | Post Tag | `post_tag_` | `post_tag_123XyZ456AbC` | | Member | `member_` | `member_JkL012MnO345PqR678` |  ## 🎯 Best Practices  ### Error Handling - **Always check status codes**: 2xx = success, 4xx = client error, 5xx = server error - **Read error messages**: Descriptive messages help debug issues - **Handle rate limits**: Respect API rate limits for optimal performance  ### Data Validation - **Email format**: Must be valid email addresses - **Required fields**: Check documentation for mandatory fields - **Field lengths**: Respect maximum length constraints  ### Performance - **Pagination**: Use offset/limit for large datasets - **Batch operations**: Process multiple items when supported - **Caching**: Cache responses when appropriate  ## 🛠️ SDKs & Integration  Official SDKs available for: - [Golang](https://github.com/sendx/sendx-go-sdk) - [Python](https://github.com/sendx/sendx-python-sdk) - [Ruby](https://github.com/sendx/sendx-ruby-sdk) - [Java](https://github.com/sendx/sendx-java-sdk) - [PHP](https://github.com/sendx/sendx-php-sdk) - [JavaScript](https://github.com/sendx/sendx-javascript-sdk)  ## 📞 Support  Need help? Contact us: - 💬 **Website Chat**: Available on sendx.io - 📧 **Email**: hello@sendx.io - 📚 **Documentation**: Full guides at help.sendx.io  ---  **API Endpoint:** `https://api.sendx.io/api/v1/rest`  [<img src=\"https://run.pstmn.io/button.svg\" alt=\"Run In Postman\" style=\"width: 128px; height: 32px;\">](https://god.gw.postman.com/run-collection/33476323-44b198b0-5219-4619-a01f-cfc24d573885?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33476323-44b198b0-5219-4619-a01f-cfc24d573885%26entityType%3Dcollection%26workspaceId%3D6b1e4f65-96a9-4136-9512-6266c852517e) 
  *
  * The version of the OpenAPI document: 1.0.0
- * Contact: support@sendx.io
+ * Contact: hello@sendx.io
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
  * https://openapi-generator.tech
@@ -13,45 +13,74 @@
 
 
 import ApiClient from './ApiClient';
-import Campaign from './model/Campaign';
-import CampaignDashboardData from './model/CampaignDashboardData';
-import CampaignRequest from './model/CampaignRequest';
-import Contact from './model/Contact';
-import ContactRequest from './model/ContactRequest';
-import CreateResponse from './model/CreateResponse';
 import CustomEventRequest from './model/CustomEventRequest';
-import DashboardStats from './model/DashboardStats';
-import DeleteCampaign200Response from './model/DeleteCampaign200Response';
-import DeleteRequest from './model/DeleteRequest';
 import DeleteResponse from './model/DeleteResponse';
+import ErrorResponse from './model/ErrorResponse';
 import EventResponse from './model/EventResponse';
+import EventsRevenuePostbackGet200Response from './model/EventsRevenuePostbackGet200Response';
+import EventsRevenuePostbackGet400Response from './model/EventsRevenuePostbackGet400Response';
+import EventsRevenuePostbackGet500Response from './model/EventsRevenuePostbackGet500Response';
 import IdentifyRequest from './model/IdentifyRequest';
 import IdentifyResponse from './model/IdentifyResponse';
-import LastSentCampaignStat from './model/LastSentCampaignStat';
-import ListModel from './model/ListModel';
-import ListRequest from './model/ListRequest';
-import ReportData from './model/ReportData';
-import Response from './model/Response';
+import LinkStat from './model/LinkStat';
+import MessageResponse from './model/MessageResponse';
+import PostbackResponse from './model/PostbackResponse';
+import RestECampaign from './model/RestECampaign';
+import RestEContact from './model/RestEContact';
+import RestECustomField from './model/RestECustomField';
+import RestEList from './model/RestEList';
+import RestEPost from './model/RestEPost';
+import RestEPostCategory from './model/RestEPostCategory';
+import RestEPostTag from './model/RestEPostTag';
+import RestESender from './model/RestESender';
+import RestETag from './model/RestETag';
+import RestETemplate from './model/RestETemplate';
+import RestEWebhook from './model/RestEWebhook';
+import RestRCampaign from './model/RestRCampaign';
+import RestRContact from './model/RestRContact';
+import RestRCustomField from './model/RestRCustomField';
+import RestRList from './model/RestRList';
+import RestRMember from './model/RestRMember';
+import RestRPost from './model/RestRPost';
+import RestRPostCategory from './model/RestRPostCategory';
+import RestRPostTag from './model/RestRPostTag';
+import RestRSender from './model/RestRSender';
+import RestRTag from './model/RestRTag';
+import RestRTemplate from './model/RestRTemplate';
+import RestRWebhook from './model/RestRWebhook';
+import RestReportData from './model/RestReportData';
 import RevenueEventRequest from './model/RevenueEventRequest';
-import Sender from './model/Sender';
-import SenderRequest from './model/SenderRequest';
-import SenderResponse from './model/SenderResponse';
-import Tag from './model/Tag';
-import TagRequest from './model/TagRequest';
+import TemplateEmailMessage from './model/TemplateEmailMessage';
 import TrackRequest from './model/TrackRequest';
 import TrackResponse from './model/TrackResponse';
+import WebhookObject from './model/WebhookObject';
+import XAttachment from './model/XAttachment';
+import XEmailMessage from './model/XEmailMessage';
+import XEmailResponse from './model/XEmailResponse';
+import XFrom from './model/XFrom';
+import XReplyTo from './model/XReplyTo';
+import XTo from './model/XTo';
 import CampaignApi from './api/CampaignApi';
 import ContactApi from './api/ContactApi';
+import CustomFieldApi from './api/CustomFieldApi';
+import EmailSendingApi from './api/EmailSendingApi';
 import EventApi from './api/EventApi';
-import GettingStartedApi from './api/GettingStartedApi';
+import EventsApi from './api/EventsApi';
 import ListApi from './api/ListApi';
-import ReportsApi from './api/ReportsApi';
+import PostApi from './api/PostApi';
+import PostCategoryApi from './api/PostCategoryApi';
+import PostTagApi from './api/PostTagApi';
+import ReportApi from './api/ReportApi';
 import SenderApi from './api/SenderApi';
-import TagsApi from './api/TagsApi';
+import TagApi from './api/TagApi';
+import TeamMemberApi from './api/TeamMemberApi';
+import TemplateApi from './api/TemplateApi';
+import TrackingApi from './api/TrackingApi';
+import WebhookApi from './api/WebhookApi';
 
 
 /**
-* # Introduction SendX is an email marketing product. It helps you convert website visitors to customers, send them promotional emails, engage with them using drip sequences and craft custom journeys using powerful but simple automations. The SendX API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs. The SendX Rest API doesn’t support bulk updates. You can work on only one object per request. &lt;br&gt; .<br>
+* # SendX REST API Documentation  ## 🚀 Introduction  The SendX API is organized around REST principles. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.  **Key Features:** - 🔒 **Security**: Team-based authentication with optional member-level access - 🎯 **Resource-Oriented**: RESTful design with clear resource boundaries - 📊 **Rich Data Models**: Three-layer model system (Input/Output/Internal) - 🔗 **Relationships**: Automatic prefix handling for resource relationships - 📈 **Scalable**: Built for high-volume email marketing operations  ## 🏗️ Architecture Overview  SendX uses a three-layer model architecture:  1. **Input Models** (&#x60;RestE*&#x60;): For API requests 2. **Output Models** (&#x60;RestR*&#x60;): For API responses with prefixed IDs 3. **Internal Models**: Core business logic (not exposed in API)  ## 🔐 Security &amp; Authentication  SendX uses API key authentication:  ### Team API Key &#x60;&#x60;&#x60;http X-Team-ApiKey: YOUR_TEAM_API_KEY &#x60;&#x60;&#x60; - **Required for all requests** - Team-level access to resources - Available in SendX Settings → Team API Key  ## 🆔 Encrypted ID System  SendX uses encrypted IDs for security and better developer experience:  - **Internal IDs**: Sequential integers (not exposed) - **Encrypted IDs**: 22-character alphanumeric strings - **Prefixed IDs**: Resource-type prefixes in API responses (&#x60;contact_&lt;22-char-id&gt;&#x60;)  ### ID Format  **All resource IDs follow this pattern:** &#x60;&#x60;&#x60; &lt;resource_prefix&gt;_&lt;22_character_alphanumeric_string&gt; &#x60;&#x60;&#x60;  **Example:** &#x60;&#x60;&#x60;json {   \&quot;id\&quot;: \&quot;contact_BnKjkbBBS500CoBCP0oChQ\&quot;,   \&quot;lists\&quot;: [\&quot;list_OcuxJHdiAvujmwQVJfd3ss\&quot;, \&quot;list_0tOFLp5RgV7s3LNiHrjGYs\&quot;],   \&quot;tags\&quot;: [\&quot;tag_UhsDkjL772Qbj5lWtT62VK\&quot;, \&quot;tag_fL7t9lsnZ9swvx2HrtQ9wM\&quot;] } &#x60;&#x60;&#x60;  ## 📚 Resource Prefixes  | Resource | Prefix | Example | |----------|--------|---------| | Contact | &#x60;contact_&#x60; | &#x60;contact_BnKjkbBBS500CoBCP0oChQ&#x60; | | Campaign | &#x60;campaign_&#x60; | &#x60;campaign_LUE9BTxmksSmqHWbh96zsn&#x60; | | List | &#x60;list_&#x60; | &#x60;list_OcuxJHdiAvujmwQVJfd3ss&#x60; | | Tag | &#x60;tag_&#x60; | &#x60;tag_UhsDkjL772Qbj5lWtT62VK&#x60; | | Sender | &#x60;sender_&#x60; | &#x60;sender_4vK3WFhMgvOwUNyaL4QxCD&#x60; | | Template | &#x60;template_&#x60; | &#x60;template_f3lJvTEhSjKGVb5Lwc5SWS&#x60; | | Custom Field | &#x60;field_&#x60; | &#x60;field_MnuqBAG2NPLm7PZMWbjQxt&#x60; | | Webhook | &#x60;webhook_&#x60; | &#x60;webhook_9l154iiXlZoPo7vngmamee&#x60; | | Post | &#x60;post_&#x60; | &#x60;post_XyZ123aBc456DeF789GhI&#x60; | | Post Category | &#x60;post_category_&#x60; | &#x60;post_category_YzS1wOU20yw87UUHKxMzwn&#x60; | | Post Tag | &#x60;post_tag_&#x60; | &#x60;post_tag_123XyZ456AbC&#x60; | | Member | &#x60;member_&#x60; | &#x60;member_JkL012MnO345PqR678&#x60; |  ## 🎯 Best Practices  ### Error Handling - **Always check status codes**: 2xx &#x3D; success, 4xx &#x3D; client error, 5xx &#x3D; server error - **Read error messages**: Descriptive messages help debug issues - **Handle rate limits**: Respect API rate limits for optimal performance  ### Data Validation - **Email format**: Must be valid email addresses - **Required fields**: Check documentation for mandatory fields - **Field lengths**: Respect maximum length constraints  ### Performance - **Pagination**: Use offset/limit for large datasets - **Batch operations**: Process multiple items when supported - **Caching**: Cache responses when appropriate  ## 🛠️ SDKs &amp; Integration  Official SDKs available for: - [Golang](https://github.com/sendx/sendx-go-sdk) - [Python](https://github.com/sendx/sendx-python-sdk) - [Ruby](https://github.com/sendx/sendx-ruby-sdk) - [Java](https://github.com/sendx/sendx-java-sdk) - [PHP](https://github.com/sendx/sendx-php-sdk) - [JavaScript](https://github.com/sendx/sendx-javascript-sdk)  ## 📞 Support  Need help? Contact us: - 💬 **Website Chat**: Available on sendx.io - 📧 **Email**: hello@sendx.io - 📚 **Documentation**: Full guides at help.sendx.io  ---  **API Endpoint:** &#x60;https://api.sendx.io/api/v1/rest&#x60;  [&lt;img src&#x3D;\&quot;https://run.pstmn.io/button.svg\&quot; alt&#x3D;\&quot;Run In Postman\&quot; style&#x3D;\&quot;width: 128px; height: 32px;\&quot;&gt;](https://god.gw.postman.com/run-collection/33476323-44b198b0-5219-4619-a01f-cfc24d573885?action&#x3D;collection%2Ffork&amp;source&#x3D;rip_markdown&amp;collection-url&#x3D;entityId%3D33476323-44b198b0-5219-4619-a01f-cfc24d573885%26entityType%3Dcollection%26workspaceId%3D6b1e4f65-96a9-4136-9512-6266c852517e) .<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
@@ -89,64 +118,10 @@ export {
     ApiClient,
 
     /**
-     * The Campaign model constructor.
-     * @property {module:sendx/model/Campaign}
-     */
-    Campaign,
-
-    /**
-     * The CampaignDashboardData model constructor.
-     * @property {module:sendx/model/CampaignDashboardData}
-     */
-    CampaignDashboardData,
-
-    /**
-     * The CampaignRequest model constructor.
-     * @property {module:sendx/model/CampaignRequest}
-     */
-    CampaignRequest,
-
-    /**
-     * The Contact model constructor.
-     * @property {module:sendx/model/Contact}
-     */
-    Contact,
-
-    /**
-     * The ContactRequest model constructor.
-     * @property {module:sendx/model/ContactRequest}
-     */
-    ContactRequest,
-
-    /**
-     * The CreateResponse model constructor.
-     * @property {module:sendx/model/CreateResponse}
-     */
-    CreateResponse,
-
-    /**
      * The CustomEventRequest model constructor.
      * @property {module:sendx/model/CustomEventRequest}
      */
     CustomEventRequest,
-
-    /**
-     * The DashboardStats model constructor.
-     * @property {module:sendx/model/DashboardStats}
-     */
-    DashboardStats,
-
-    /**
-     * The DeleteCampaign200Response model constructor.
-     * @property {module:sendx/model/DeleteCampaign200Response}
-     */
-    DeleteCampaign200Response,
-
-    /**
-     * The DeleteRequest model constructor.
-     * @property {module:sendx/model/DeleteRequest}
-     */
-    DeleteRequest,
 
     /**
      * The DeleteResponse model constructor.
@@ -155,10 +130,34 @@ export {
     DeleteResponse,
 
     /**
+     * The ErrorResponse model constructor.
+     * @property {module:sendx/model/ErrorResponse}
+     */
+    ErrorResponse,
+
+    /**
      * The EventResponse model constructor.
      * @property {module:sendx/model/EventResponse}
      */
     EventResponse,
+
+    /**
+     * The EventsRevenuePostbackGet200Response model constructor.
+     * @property {module:sendx/model/EventsRevenuePostbackGet200Response}
+     */
+    EventsRevenuePostbackGet200Response,
+
+    /**
+     * The EventsRevenuePostbackGet400Response model constructor.
+     * @property {module:sendx/model/EventsRevenuePostbackGet400Response}
+     */
+    EventsRevenuePostbackGet400Response,
+
+    /**
+     * The EventsRevenuePostbackGet500Response model constructor.
+     * @property {module:sendx/model/EventsRevenuePostbackGet500Response}
+     */
+    EventsRevenuePostbackGet500Response,
 
     /**
      * The IdentifyRequest model constructor.
@@ -173,34 +172,166 @@ export {
     IdentifyResponse,
 
     /**
-     * The LastSentCampaignStat model constructor.
-     * @property {module:sendx/model/LastSentCampaignStat}
+     * The LinkStat model constructor.
+     * @property {module:sendx/model/LinkStat}
      */
-    LastSentCampaignStat,
+    LinkStat,
 
     /**
-     * The ListModel model constructor.
-     * @property {module:sendx/model/ListModel}
+     * The MessageResponse model constructor.
+     * @property {module:sendx/model/MessageResponse}
      */
-    ListModel,
+    MessageResponse,
 
     /**
-     * The ListRequest model constructor.
-     * @property {module:sendx/model/ListRequest}
+     * The PostbackResponse model constructor.
+     * @property {module:sendx/model/PostbackResponse}
      */
-    ListRequest,
+    PostbackResponse,
 
     /**
-     * The ReportData model constructor.
-     * @property {module:sendx/model/ReportData}
+     * The RestECampaign model constructor.
+     * @property {module:sendx/model/RestECampaign}
      */
-    ReportData,
+    RestECampaign,
 
     /**
-     * The Response model constructor.
-     * @property {module:sendx/model/Response}
+     * The RestEContact model constructor.
+     * @property {module:sendx/model/RestEContact}
      */
-    Response,
+    RestEContact,
+
+    /**
+     * The RestECustomField model constructor.
+     * @property {module:sendx/model/RestECustomField}
+     */
+    RestECustomField,
+
+    /**
+     * The RestEList model constructor.
+     * @property {module:sendx/model/RestEList}
+     */
+    RestEList,
+
+    /**
+     * The RestEPost model constructor.
+     * @property {module:sendx/model/RestEPost}
+     */
+    RestEPost,
+
+    /**
+     * The RestEPostCategory model constructor.
+     * @property {module:sendx/model/RestEPostCategory}
+     */
+    RestEPostCategory,
+
+    /**
+     * The RestEPostTag model constructor.
+     * @property {module:sendx/model/RestEPostTag}
+     */
+    RestEPostTag,
+
+    /**
+     * The RestESender model constructor.
+     * @property {module:sendx/model/RestESender}
+     */
+    RestESender,
+
+    /**
+     * The RestETag model constructor.
+     * @property {module:sendx/model/RestETag}
+     */
+    RestETag,
+
+    /**
+     * The RestETemplate model constructor.
+     * @property {module:sendx/model/RestETemplate}
+     */
+    RestETemplate,
+
+    /**
+     * The RestEWebhook model constructor.
+     * @property {module:sendx/model/RestEWebhook}
+     */
+    RestEWebhook,
+
+    /**
+     * The RestRCampaign model constructor.
+     * @property {module:sendx/model/RestRCampaign}
+     */
+    RestRCampaign,
+
+    /**
+     * The RestRContact model constructor.
+     * @property {module:sendx/model/RestRContact}
+     */
+    RestRContact,
+
+    /**
+     * The RestRCustomField model constructor.
+     * @property {module:sendx/model/RestRCustomField}
+     */
+    RestRCustomField,
+
+    /**
+     * The RestRList model constructor.
+     * @property {module:sendx/model/RestRList}
+     */
+    RestRList,
+
+    /**
+     * The RestRMember model constructor.
+     * @property {module:sendx/model/RestRMember}
+     */
+    RestRMember,
+
+    /**
+     * The RestRPost model constructor.
+     * @property {module:sendx/model/RestRPost}
+     */
+    RestRPost,
+
+    /**
+     * The RestRPostCategory model constructor.
+     * @property {module:sendx/model/RestRPostCategory}
+     */
+    RestRPostCategory,
+
+    /**
+     * The RestRPostTag model constructor.
+     * @property {module:sendx/model/RestRPostTag}
+     */
+    RestRPostTag,
+
+    /**
+     * The RestRSender model constructor.
+     * @property {module:sendx/model/RestRSender}
+     */
+    RestRSender,
+
+    /**
+     * The RestRTag model constructor.
+     * @property {module:sendx/model/RestRTag}
+     */
+    RestRTag,
+
+    /**
+     * The RestRTemplate model constructor.
+     * @property {module:sendx/model/RestRTemplate}
+     */
+    RestRTemplate,
+
+    /**
+     * The RestRWebhook model constructor.
+     * @property {module:sendx/model/RestRWebhook}
+     */
+    RestRWebhook,
+
+    /**
+     * The RestReportData model constructor.
+     * @property {module:sendx/model/RestReportData}
+     */
+    RestReportData,
 
     /**
      * The RevenueEventRequest model constructor.
@@ -209,34 +340,10 @@ export {
     RevenueEventRequest,
 
     /**
-     * The Sender model constructor.
-     * @property {module:sendx/model/Sender}
+     * The TemplateEmailMessage model constructor.
+     * @property {module:sendx/model/TemplateEmailMessage}
      */
-    Sender,
-
-    /**
-     * The SenderRequest model constructor.
-     * @property {module:sendx/model/SenderRequest}
-     */
-    SenderRequest,
-
-    /**
-     * The SenderResponse model constructor.
-     * @property {module:sendx/model/SenderResponse}
-     */
-    SenderResponse,
-
-    /**
-     * The Tag model constructor.
-     * @property {module:sendx/model/Tag}
-     */
-    Tag,
-
-    /**
-     * The TagRequest model constructor.
-     * @property {module:sendx/model/TagRequest}
-     */
-    TagRequest,
+    TemplateEmailMessage,
 
     /**
      * The TrackRequest model constructor.
@@ -251,6 +358,48 @@ export {
     TrackResponse,
 
     /**
+     * The WebhookObject model constructor.
+     * @property {module:sendx/model/WebhookObject}
+     */
+    WebhookObject,
+
+    /**
+     * The XAttachment model constructor.
+     * @property {module:sendx/model/XAttachment}
+     */
+    XAttachment,
+
+    /**
+     * The XEmailMessage model constructor.
+     * @property {module:sendx/model/XEmailMessage}
+     */
+    XEmailMessage,
+
+    /**
+     * The XEmailResponse model constructor.
+     * @property {module:sendx/model/XEmailResponse}
+     */
+    XEmailResponse,
+
+    /**
+     * The XFrom model constructor.
+     * @property {module:sendx/model/XFrom}
+     */
+    XFrom,
+
+    /**
+     * The XReplyTo model constructor.
+     * @property {module:sendx/model/XReplyTo}
+     */
+    XReplyTo,
+
+    /**
+     * The XTo model constructor.
+     * @property {module:sendx/model/XTo}
+     */
+    XTo,
+
+    /**
     * The CampaignApi service constructor.
     * @property {module:sendx/api/CampaignApi}
     */
@@ -263,16 +412,28 @@ export {
     ContactApi,
 
     /**
+    * The CustomFieldApi service constructor.
+    * @property {module:sendx/api/CustomFieldApi}
+    */
+    CustomFieldApi,
+
+    /**
+    * The EmailSendingApi service constructor.
+    * @property {module:sendx/api/EmailSendingApi}
+    */
+    EmailSendingApi,
+
+    /**
     * The EventApi service constructor.
     * @property {module:sendx/api/EventApi}
     */
     EventApi,
 
     /**
-    * The GettingStartedApi service constructor.
-    * @property {module:sendx/api/GettingStartedApi}
+    * The EventsApi service constructor.
+    * @property {module:sendx/api/EventsApi}
     */
-    GettingStartedApi,
+    EventsApi,
 
     /**
     * The ListApi service constructor.
@@ -281,10 +442,28 @@ export {
     ListApi,
 
     /**
-    * The ReportsApi service constructor.
-    * @property {module:sendx/api/ReportsApi}
+    * The PostApi service constructor.
+    * @property {module:sendx/api/PostApi}
     */
-    ReportsApi,
+    PostApi,
+
+    /**
+    * The PostCategoryApi service constructor.
+    * @property {module:sendx/api/PostCategoryApi}
+    */
+    PostCategoryApi,
+
+    /**
+    * The PostTagApi service constructor.
+    * @property {module:sendx/api/PostTagApi}
+    */
+    PostTagApi,
+
+    /**
+    * The ReportApi service constructor.
+    * @property {module:sendx/api/ReportApi}
+    */
+    ReportApi,
 
     /**
     * The SenderApi service constructor.
@@ -293,8 +472,32 @@ export {
     SenderApi,
 
     /**
-    * The TagsApi service constructor.
-    * @property {module:sendx/api/TagsApi}
+    * The TagApi service constructor.
+    * @property {module:sendx/api/TagApi}
     */
-    TagsApi
+    TagApi,
+
+    /**
+    * The TeamMemberApi service constructor.
+    * @property {module:sendx/api/TeamMemberApi}
+    */
+    TeamMemberApi,
+
+    /**
+    * The TemplateApi service constructor.
+    * @property {module:sendx/api/TemplateApi}
+    */
+    TemplateApi,
+
+    /**
+    * The TrackingApi service constructor.
+    * @property {module:sendx/api/TrackingApi}
+    */
+    TrackingApi,
+
+    /**
+    * The WebhookApi service constructor.
+    * @property {module:sendx/api/WebhookApi}
+    */
+    WebhookApi
 };

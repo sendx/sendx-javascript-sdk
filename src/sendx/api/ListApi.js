@@ -1,9 +1,9 @@
 /**
  * SendX REST API
- * # Introduction SendX is an email marketing product. It helps you convert website visitors to customers, send them promotional emails, engage with them using drip sequences and craft custom journeys using powerful but simple automations. The SendX API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs. The SendX Rest API doesn’t support bulk updates. You can work on only one object per request. <br> 
+ * # SendX REST API Documentation  ## 🚀 Introduction  The SendX API is organized around REST principles. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.  **Key Features:** - 🔒 **Security**: Team-based authentication with optional member-level access - 🎯 **Resource-Oriented**: RESTful design with clear resource boundaries - 📊 **Rich Data Models**: Three-layer model system (Input/Output/Internal) - 🔗 **Relationships**: Automatic prefix handling for resource relationships - 📈 **Scalable**: Built for high-volume email marketing operations  ## 🏗️ Architecture Overview  SendX uses a three-layer model architecture:  1. **Input Models** (`RestE*`): For API requests 2. **Output Models** (`RestR*`): For API responses with prefixed IDs 3. **Internal Models**: Core business logic (not exposed in API)  ## 🔐 Security & Authentication  SendX uses API key authentication:  ### Team API Key ```http X-Team-ApiKey: YOUR_TEAM_API_KEY ``` - **Required for all requests** - Team-level access to resources - Available in SendX Settings → Team API Key  ## 🆔 Encrypted ID System  SendX uses encrypted IDs for security and better developer experience:  - **Internal IDs**: Sequential integers (not exposed) - **Encrypted IDs**: 22-character alphanumeric strings - **Prefixed IDs**: Resource-type prefixes in API responses (`contact_<22-char-id>`)  ### ID Format  **All resource IDs follow this pattern:** ``` <resource_prefix>_<22_character_alphanumeric_string> ```  **Example:** ```json {   \"id\": \"contact_BnKjkbBBS500CoBCP0oChQ\",   \"lists\": [\"list_OcuxJHdiAvujmwQVJfd3ss\", \"list_0tOFLp5RgV7s3LNiHrjGYs\"],   \"tags\": [\"tag_UhsDkjL772Qbj5lWtT62VK\", \"tag_fL7t9lsnZ9swvx2HrtQ9wM\"] } ```  ## 📚 Resource Prefixes  | Resource | Prefix | Example | |----------|--------|---------| | Contact | `contact_` | `contact_BnKjkbBBS500CoBCP0oChQ` | | Campaign | `campaign_` | `campaign_LUE9BTxmksSmqHWbh96zsn` | | List | `list_` | `list_OcuxJHdiAvujmwQVJfd3ss` | | Tag | `tag_` | `tag_UhsDkjL772Qbj5lWtT62VK` | | Sender | `sender_` | `sender_4vK3WFhMgvOwUNyaL4QxCD` | | Template | `template_` | `template_f3lJvTEhSjKGVb5Lwc5SWS` | | Custom Field | `field_` | `field_MnuqBAG2NPLm7PZMWbjQxt` | | Webhook | `webhook_` | `webhook_9l154iiXlZoPo7vngmamee` | | Post | `post_` | `post_XyZ123aBc456DeF789GhI` | | Post Category | `post_category_` | `post_category_YzS1wOU20yw87UUHKxMzwn` | | Post Tag | `post_tag_` | `post_tag_123XyZ456AbC` | | Member | `member_` | `member_JkL012MnO345PqR678` |  ## 🎯 Best Practices  ### Error Handling - **Always check status codes**: 2xx = success, 4xx = client error, 5xx = server error - **Read error messages**: Descriptive messages help debug issues - **Handle rate limits**: Respect API rate limits for optimal performance  ### Data Validation - **Email format**: Must be valid email addresses - **Required fields**: Check documentation for mandatory fields - **Field lengths**: Respect maximum length constraints  ### Performance - **Pagination**: Use offset/limit for large datasets - **Batch operations**: Process multiple items when supported - **Caching**: Cache responses when appropriate  ## 🛠️ SDKs & Integration  Official SDKs available for: - [Golang](https://github.com/sendx/sendx-go-sdk) - [Python](https://github.com/sendx/sendx-python-sdk) - [Ruby](https://github.com/sendx/sendx-ruby-sdk) - [Java](https://github.com/sendx/sendx-java-sdk) - [PHP](https://github.com/sendx/sendx-php-sdk) - [JavaScript](https://github.com/sendx/sendx-javascript-sdk)  ## 📞 Support  Need help? Contact us: - 💬 **Website Chat**: Available on sendx.io - 📧 **Email**: hello@sendx.io - 📚 **Documentation**: Full guides at help.sendx.io  ---  **API Endpoint:** `https://api.sendx.io/api/v1/rest`  [<img src=\"https://run.pstmn.io/button.svg\" alt=\"Run In Postman\" style=\"width: 128px; height: 32px;\">](https://god.gw.postman.com/run-collection/33476323-44b198b0-5219-4619-a01f-cfc24d573885?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33476323-44b198b0-5219-4619-a01f-cfc24d573885%26entityType%3Dcollection%26workspaceId%3D6b1e4f65-96a9-4136-9512-6266c852517e) 
  *
  * The version of the OpenAPI document: 1.0.0
- * Contact: support@sendx.io
+ * Contact: hello@sendx.io
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
  * https://openapi-generator.tech
@@ -13,11 +13,10 @@
 
 
 import ApiClient from "../ApiClient";
-import CreateResponse from '../model/CreateResponse';
 import DeleteResponse from '../model/DeleteResponse';
-import ListModel from '../model/ListModel';
-import ListRequest from '../model/ListRequest';
-import Response from '../model/Response';
+import ErrorResponse from '../model/ErrorResponse';
+import RestEList from '../model/RestEList';
+import RestRList from '../model/RestRList';
 
 /**
 * List service.
@@ -40,16 +39,16 @@ export default class ListApi {
 
 
     /**
-     * Create List
-     * Create a new list.
-     * @param {module:sendx/model/ListRequest} listRequest 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/CreateResponse} and HTTP response
+     * Create list
+     * Creates a new contact list. 
+     * @param {module:sendx/model/RestEList} restEList 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRList} and HTTP response
      */
-    createListWithHttpInfo(listRequest) {
-      let postBody = listRequest;
-      // verify the required parameter 'listRequest' is set
-      if (listRequest === undefined || listRequest === null) {
-        throw new Error("Missing the required parameter 'listRequest' when calling createList");
+    createListWithHttpInfo(restEList) {
+      let postBody = restEList;
+      // verify the required parameter 'restEList' is set
+      if (restEList === undefined || restEList === null) {
+        throw new Error("Missing the required parameter 'restEList' when calling createList");
       }
 
       let pathParams = {
@@ -61,10 +60,10 @@ export default class ListApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = CreateResponse;
+      let returnType = RestRList;
       return this.apiClient.callApi(
         '/list', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -73,13 +72,13 @@ export default class ListApi {
     }
 
     /**
-     * Create List
-     * Create a new list.
-     * @param {module:sendx/model/ListRequest} listRequest 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/CreateResponse}
+     * Create list
+     * Creates a new contact list. 
+     * @param {module:sendx/model/RestEList} restEList 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRList}
      */
-    createList(listRequest) {
-      return this.createListWithHttpInfo(listRequest)
+    createList(restEList) {
+      return this.createListWithHttpInfo(restEList)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -87,20 +86,20 @@ export default class ListApi {
 
 
     /**
-     * Delete List
-     * Deletes a specific list by its ID.
-     * @param {String} listId The ID of the list you want to delete
+     * Delete list
+     * Deletes a list. 
+     * @param {String} identifier List identifier to delete
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/DeleteResponse} and HTTP response
      */
-    deleteListWithHttpInfo(listId) {
+    deleteListWithHttpInfo(identifier) {
       let postBody = null;
-      // verify the required parameter 'listId' is set
-      if (listId === undefined || listId === null) {
-        throw new Error("Missing the required parameter 'listId' when calling deleteList");
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling deleteList");
       }
 
       let pathParams = {
-        'listId': listId
+        'identifier': identifier
       };
       let queryParams = {
       };
@@ -109,25 +108,25 @@ export default class ListApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = DeleteResponse;
       return this.apiClient.callApi(
-        '/list/{listId}', 'DELETE',
+        '/list/{identifier}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Delete List
-     * Deletes a specific list by its ID.
-     * @param {String} listId The ID of the list you want to delete
+     * Delete list
+     * Deletes a list. 
+     * @param {String} identifier List identifier to delete
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/DeleteResponse}
      */
-    deleteList(listId) {
-      return this.deleteListWithHttpInfo(listId)
+    deleteList(identifier) {
+      return this.deleteListWithHttpInfo(identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -135,13 +134,13 @@ export default class ListApi {
 
 
     /**
-     * Get All Lists
-     * Retrieve all lists for the account.
+     * Get all lists
+     * Retrieves all contact lists in your team. 
      * @param {Object} opts Optional parameters
-     * @param {Number} [offset] Offset for pagination.
-     * @param {Number} [limit] Limit the number of results returned.
-     * @param {String} [search] Search term to filter lists.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:sendx/model/ListModel>} and HTTP response
+     * @param {Number} [offset = 0)] Number of records to skip for pagination
+     * @param {Number} [limit = 10)] Maximum number of lists to return (max: 500)
+     * @param {String} [search] Search lists by name
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:sendx/model/RestRList>} and HTTP response
      */
     getAllListsWithHttpInfo(opts) {
       opts = opts || {};
@@ -159,10 +158,10 @@ export default class ListApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ListModel];
+      let returnType = [RestRList];
       return this.apiClient.callApi(
         '/list', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -171,13 +170,13 @@ export default class ListApi {
     }
 
     /**
-     * Get All Lists
-     * Retrieve all lists for the account.
+     * Get all lists
+     * Retrieves all contact lists in your team. 
      * @param {Object} opts Optional parameters
-     * @param {Number} opts.offset Offset for pagination.
-     * @param {Number} opts.limit Limit the number of results returned.
-     * @param {String} opts.search Search term to filter lists.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:sendx/model/ListModel>}
+     * @param {Number} opts.offset Number of records to skip for pagination (default to 0)
+     * @param {Number} opts.limit Maximum number of lists to return (max: 500) (default to 10)
+     * @param {String} opts.search Search lists by name
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:sendx/model/RestRList>}
      */
     getAllLists(opts) {
       return this.getAllListsWithHttpInfo(opts)
@@ -188,20 +187,20 @@ export default class ListApi {
 
 
     /**
-     * Get List
-     * Retrieve a specific list by its ID.
-     * @param {String} listId The ID of the list you want to retrieve
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/ListModel} and HTTP response
+     * Get list by ID
+     * Retrieves detailed information about a specific list. 
+     * @param {String} identifier List identifier - `list_OcuxJHdiAvujmwQVJfd3ss` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRList} and HTTP response
      */
-    getListByIdWithHttpInfo(listId) {
+    getListWithHttpInfo(identifier) {
       let postBody = null;
-      // verify the required parameter 'listId' is set
-      if (listId === undefined || listId === null) {
-        throw new Error("Missing the required parameter 'listId' when calling getListById");
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling getList");
       }
 
       let pathParams = {
-        'listId': listId
+        'identifier': identifier
       };
       let queryParams = {
       };
@@ -210,25 +209,25 @@ export default class ListApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ListModel;
+      let returnType = RestRList;
       return this.apiClient.callApi(
-        '/list/{listId}', 'GET',
+        '/list/{identifier}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Get List
-     * Retrieve a specific list by its ID.
-     * @param {String} listId The ID of the list you want to retrieve
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/ListModel}
+     * Get list by ID
+     * Retrieves detailed information about a specific list. 
+     * @param {String} identifier List identifier - `list_OcuxJHdiAvujmwQVJfd3ss` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRList}
      */
-    getListById(listId) {
-      return this.getListByIdWithHttpInfo(listId)
+    getList(identifier) {
+      return this.getListWithHttpInfo(identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -236,25 +235,25 @@ export default class ListApi {
 
 
     /**
-     * Update List
-     * Update an existing list by its ID.
-     * @param {module:sendx/model/ListRequest} listRequest 
-     * @param {String} listId The ID of the list to be updated.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Response} and HTTP response
+     * Update list
+     * Updates an existing list's settings. 
+     * @param {module:sendx/model/RestEList} restEList 
+     * @param {String} identifier List identifier to update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRList} and HTTP response
      */
-    updateListWithHttpInfo(listRequest, listId) {
-      let postBody = listRequest;
-      // verify the required parameter 'listRequest' is set
-      if (listRequest === undefined || listRequest === null) {
-        throw new Error("Missing the required parameter 'listRequest' when calling updateList");
+    updateListWithHttpInfo(restEList, identifier) {
+      let postBody = restEList;
+      // verify the required parameter 'restEList' is set
+      if (restEList === undefined || restEList === null) {
+        throw new Error("Missing the required parameter 'restEList' when calling updateList");
       }
-      // verify the required parameter 'listId' is set
-      if (listId === undefined || listId === null) {
-        throw new Error("Missing the required parameter 'listId' when calling updateList");
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling updateList");
       }
 
       let pathParams = {
-        'listId': listId
+        'identifier': identifier
       };
       let queryParams = {
       };
@@ -263,26 +262,26 @@ export default class ListApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Response;
+      let returnType = RestRList;
       return this.apiClient.callApi(
-        '/list/{listId}', 'PUT',
+        '/list/{identifier}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Update List
-     * Update an existing list by its ID.
-     * @param {module:sendx/model/ListRequest} listRequest 
-     * @param {String} listId The ID of the list to be updated.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Response}
+     * Update list
+     * Updates an existing list's settings. 
+     * @param {module:sendx/model/RestEList} restEList 
+     * @param {String} identifier List identifier to update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRList}
      */
-    updateList(listRequest, listId) {
-      return this.updateListWithHttpInfo(listRequest, listId)
+    updateList(restEList, identifier) {
+      return this.updateListWithHttpInfo(restEList, identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

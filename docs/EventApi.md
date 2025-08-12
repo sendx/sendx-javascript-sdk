@@ -4,33 +4,36 @@ All URIs are relative to *https://api.sendx.io/api/v1/rest*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createRevenueEvent**](EventApi.md#createRevenueEvent) | **POST** /events/revenue | Record a revenue event for a specific contact
-[**pushCustomEvent**](EventApi.md#pushCustomEvent) | **POST** /events/custom | Push a custom event associated with a contact
+[**eventsCustomPostbackGet**](EventApi.md#eventsCustomPostbackGet) | **GET** /events/custom/postback | Custom Event Postback URL
+[**eventsRevenuePostbackGet**](EventApi.md#eventsRevenuePostbackGet) | **GET** /events/revenue/postback | Revenue Event Postback URL
 
 
 
-## createRevenueEvent
+## eventsCustomPostbackGet
 
-> EventResponse createRevenueEvent(revenueEventRequest)
+> EventsRevenuePostbackGet200Response eventsCustomPostbackGet(teamId, id, event, anyKey)
 
-Record a revenue event for a specific contact
+Custom Event Postback URL
 
-Records a revenue event, which can be attributed to campaigns, drips, workflows, or other sources of user interaction.
+Register a custom event for a specific team and event.
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.EventApi();
-let revenueEventRequest = new sendx.RevenueEventRequest(); // RevenueEventRequest | 
-apiInstance.createRevenueEvent(revenueEventRequest).then((data) => {
+let teamId = "teamId_example"; // String | The unique identifier for the team.
+let id = "id_example"; // String | The unique sendx identifier for the contact/customer.
+let event = "event_example"; // String | The custom event name.
+let anyKey = "24.43"; // String | Arbitrary custom data as key-value pairs. Add custom parameters directly to the query string.  For example, `amount=24.43` or `currency=USD`. 
+apiInstance.eventsCustomPostbackGet(teamId, id, event, anyKey).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -43,44 +46,50 @@ apiInstance.createRevenueEvent(revenueEventRequest).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **revenueEventRequest** | [**RevenueEventRequest**](RevenueEventRequest.md)|  | 
+ **teamId** | **String**| The unique identifier for the team. | 
+ **id** | **String**| The unique sendx identifier for the contact/customer. | 
+ **event** | **String**| The custom event name. | 
+ **anyKey** | **String**| Arbitrary custom data as key-value pairs. Add custom parameters directly to the query string.  For example, &#x60;amount&#x3D;24.43&#x60; or &#x60;currency&#x3D;USD&#x60;.  | 
 
 ### Return type
 
-[**EventResponse**](EventResponse.md)
+[**EventsRevenuePostbackGet200Response**](EventsRevenuePostbackGet200Response.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
-## pushCustomEvent
+## eventsRevenuePostbackGet
 
-> EventResponse pushCustomEvent(customEventRequest)
+> EventsRevenuePostbackGet200Response eventsRevenuePostbackGet(teamId, id, amount, campaignId)
 
-Push a custom event associated with a contact
+Revenue Event Postback URL
 
-Pushes a custom event with properties and values for a specified contact.
+Trigger a revenue postback for a specific team and event.
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.EventApi();
-let customEventRequest = new sendx.CustomEventRequest(); // CustomEventRequest | 
-apiInstance.pushCustomEvent(customEventRequest).then((data) => {
+let teamId = "teamId_example"; // String | The unique identifier for the team.
+let id = "id_example"; // String | The unique sendx identifier for the contact/customer.
+let amount = 3.4; // Number | The revenue amount to be posted back.
+let campaignId = "campaignId_example"; // String | The unique identifier for the campaign.
+apiInstance.eventsRevenuePostbackGet(teamId, id, amount, campaignId).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -93,18 +102,21 @@ apiInstance.pushCustomEvent(customEventRequest).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customEventRequest** | [**CustomEventRequest**](CustomEventRequest.md)|  | 
+ **teamId** | **String**| The unique identifier for the team. | 
+ **id** | **String**| The unique sendx identifier for the contact/customer. | 
+ **amount** | **Number**| The revenue amount to be posted back. | 
+ **campaignId** | **String**| The unique identifier for the campaign. | 
 
 ### Return type
 
-[**EventResponse**](EventResponse.md)
+[**EventsRevenuePostbackGet200Response**](EventsRevenuePostbackGet200Response.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 

@@ -4,36 +4,36 @@ All URIs are relative to *https://api.sendx.io/api/v1/rest*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createList**](ListApi.md#createList) | **POST** /list | Create List
-[**deleteList**](ListApi.md#deleteList) | **DELETE** /list/{listId} | Delete List
-[**getAllLists**](ListApi.md#getAllLists) | **GET** /list | Get All Lists
-[**getListById**](ListApi.md#getListById) | **GET** /list/{listId} | Get List
-[**updateList**](ListApi.md#updateList) | **PUT** /list/{listId} | Update List
+[**createList**](ListApi.md#createList) | **POST** /list | Create list
+[**deleteList**](ListApi.md#deleteList) | **DELETE** /list/{identifier} | Delete list
+[**getAllLists**](ListApi.md#getAllLists) | **GET** /list | Get all lists
+[**getList**](ListApi.md#getList) | **GET** /list/{identifier} | Get list by ID
+[**updateList**](ListApi.md#updateList) | **PUT** /list/{identifier} | Update list
 
 
 
 ## createList
 
-> CreateResponse createList(listRequest)
+> RestRList createList(restEList)
 
-Create List
+Create list
 
-Create a new list.
+Creates a new contact list. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ListApi();
-let listRequest = new sendx.ListRequest(); // ListRequest | 
-apiInstance.createList(listRequest).then((data) => {
+let restEList = {"name":"Premium Members"}; // RestEList | 
+apiInstance.createList(restEList).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -46,15 +46,15 @@ apiInstance.createList(listRequest).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listRequest** | [**ListRequest**](ListRequest.md)|  | 
+ **restEList** | [**RestEList**](RestEList.md)|  | 
 
 ### Return type
 
-[**CreateResponse**](CreateResponse.md)
+[**RestRList**](RestRList.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -64,26 +64,26 @@ Name | Type | Description  | Notes
 
 ## deleteList
 
-> DeleteResponse deleteList(listId)
+> DeleteResponse deleteList(identifier)
 
-Delete List
+Delete list
 
-Deletes a specific list by its ID.
+Deletes a list. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ListApi();
-let listId = "sendx123"; // String | The ID of the list you want to delete
-apiInstance.deleteList(listId).then((data) => {
+let identifier = "identifier_example"; // String | List identifier to delete
+apiInstance.deleteList(identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -96,7 +96,7 @@ apiInstance.deleteList(listId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **String**| The ID of the list you want to delete | 
+ **identifier** | **String**| List identifier to delete | 
 
 ### Return type
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -114,28 +114,28 @@ Name | Type | Description  | Notes
 
 ## getAllLists
 
-> [ListModel] getAllLists(opts)
+> [RestRList] getAllLists(opts)
 
-Get All Lists
+Get all lists
 
-Retrieve all lists for the account.
+Retrieves all contact lists in your team. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ListApi();
 let opts = {
-  'offset': 0, // Number | Offset for pagination.
-  'limit': 10, // Number | Limit the number of results returned.
-  'search': "Marketing" // String | Search term to filter lists.
+  'offset': 0, // Number | Number of records to skip for pagination
+  'limit': 10, // Number | Maximum number of lists to return (max: 500)
+  'search': "search_example" // String | Search lists by name
 };
 apiInstance.getAllLists(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -150,17 +150,17 @@ apiInstance.getAllLists(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **Number**| Offset for pagination. | [optional] 
- **limit** | **Number**| Limit the number of results returned. | [optional] 
- **search** | **String**| Search term to filter lists. | [optional] 
+ **offset** | **Number**| Number of records to skip for pagination | [optional] [default to 0]
+ **limit** | **Number**| Maximum number of lists to return (max: 500) | [optional] [default to 10]
+ **search** | **String**| Search lists by name | [optional] 
 
 ### Return type
 
-[**[ListModel]**](ListModel.md)
+[**[RestRList]**](RestRList.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -168,28 +168,28 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## getListById
+## getList
 
-> ListModel getListById(listId)
+> RestRList getList(identifier)
 
-Get List
+Get list by ID
 
-Retrieve a specific list by its ID.
+Retrieves detailed information about a specific list. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ListApi();
-let listId = "sendx123"; // String | The ID of the list you want to retrieve
-apiInstance.getListById(listId).then((data) => {
+let identifier = "identifier_example"; // String | List identifier - `list_OcuxJHdiAvujmwQVJfd3ss` 
+apiInstance.getList(identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -202,15 +202,15 @@ apiInstance.getListById(listId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listId** | **String**| The ID of the list you want to retrieve | 
+ **identifier** | **String**| List identifier - &#x60;list_OcuxJHdiAvujmwQVJfd3ss&#x60;  | 
 
 ### Return type
 
-[**ListModel**](ListModel.md)
+[**RestRList**](RestRList.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -220,27 +220,27 @@ Name | Type | Description  | Notes
 
 ## updateList
 
-> Response updateList(listRequest, listId)
+> RestRList updateList(restEList, identifier)
 
-Update List
+Update list
 
-Update an existing list by its ID.
+Updates an existing list&#39;s settings. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.ListApi();
-let listRequest = new sendx.ListRequest(); // ListRequest | 
-let listId = "listId_example"; // String | The ID of the list to be updated.
-apiInstance.updateList(listRequest, listId).then((data) => {
+let restEList = {"name":"2024 Newsletter Subscribers"}; // RestEList | 
+let identifier = "identifier_example"; // String | List identifier to update
+apiInstance.updateList(restEList, identifier).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -253,16 +253,16 @@ apiInstance.updateList(listRequest, listId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listRequest** | [**ListRequest**](ListRequest.md)|  | 
- **listId** | **String**| The ID of the list to be updated. | 
+ **restEList** | [**RestEList**](RestEList.md)|  | 
+ **identifier** | **String**| List identifier to update | 
 
 ### Return type
 
-[**Response**](Response.md)
+[**RestRList**](RestRList.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 

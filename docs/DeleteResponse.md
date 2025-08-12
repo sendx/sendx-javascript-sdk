@@ -4,7 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] 
-**message** | **String** |  | [optional] 
+**status** | **String** |  | 
+**message** | **String** |  | 
+
+
+
+## Enum: StatusEnum
+
+
+* `success` (value: `"success"`)
+
+
 
 

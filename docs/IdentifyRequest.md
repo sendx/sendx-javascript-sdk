@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**firstName** | **String** | First name of the contact. | [optional] 
-**lastName** | **String** | Last name of the contact. | [optional] 
-**email** | **String** | Email address of the contact. | 
-**newEmail** | **String** | New email address of the contact. | [optional] 
-**company** | **String** | Company of the contact. | [optional] 
-**tags** | **[String]** |  | [optional] 
+**email** | **String** |  | 
+**firstName** | **String** |  | [optional] 
+**lastName** | **String** |  | [optional] 
+**company** | **String** |  | [optional] 
 **customFields** | **{String: String}** |  | [optional] 
+**tags** | **[String]** |  | [optional] 
+**newEmail** | **String** | New email when updating existing contact | [optional] 
 
 

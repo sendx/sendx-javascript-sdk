@@ -4,33 +4,33 @@ All URIs are relative to *https://api.sendx.io/api/v1/rest*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createSender**](SenderApi.md#createSender) | **POST** /sender | Create Sender
-[**getAllSenders**](SenderApi.md#getAllSenders) | **GET** /sender | Get All Senders
+[**createSender**](SenderApi.md#createSender) | **POST** /sender | Create sender
+[**getAllSenders**](SenderApi.md#getAllSenders) | **GET** /sender | Get all senders
 
 
 
 ## createSender
 
-> Sender createSender(senderRequest)
+> RestRSender createSender(restESender)
 
-Create Sender
+Create sender
 
-Creates a new sender in the system.
+Adds a new sender email address. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.SenderApi();
-let senderRequest = new sendx.SenderRequest(); // SenderRequest | 
-apiInstance.createSender(senderRequest).then((data) => {
+let restESender = new sendx.RestESender(); // RestESender | 
+apiInstance.createSender(restESender).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -43,15 +43,15 @@ apiInstance.createSender(senderRequest).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **senderRequest** | [**SenderRequest**](SenderRequest.md)|  | 
+ **restESender** | [**RestESender**](RestESender.md)|  | 
 
 ### Return type
 
-[**Sender**](Sender.md)
+[**RestRSender**](RestRSender.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 
@@ -61,30 +61,25 @@ Name | Type | Description  | Notes
 
 ## getAllSenders
 
-> [SenderResponse] getAllSenders(opts)
+> [RestRSender] getAllSenders()
 
-Get All Senders
+Get all senders
 
-Retrieve all senders for the team, with optional filters like offset, limit, and search.
+Retrieves all verified sender addresses. 
 
 ### Example
 
 ```javascript
 import sendx from 'sendx-javascript-sdk';
 let defaultClient = sendx.ApiClient.instance;
-// Configure API key authorization: apiKeyAuth
-let apiKeyAuth = defaultClient.authentications['apiKeyAuth'];
-apiKeyAuth.apiKey = 'YOUR API KEY';
+// Configure API key authorization: TeamApiKey
+let TeamApiKey = defaultClient.authentications['TeamApiKey'];
+TeamApiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKeyAuth.apiKeyPrefix = 'Token';
+//TeamApiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new sendx.SenderApi();
-let opts = {
-  'offset': 0, // Number | Number of records to skip
-  'limit': 10, // Number | Maximum number of records to return
-  'search': "search_example" // String | Search keyword to filter senders by name or email
-};
-apiInstance.getAllSenders(opts).then((data) => {
+apiInstance.getAllSenders().then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -94,20 +89,15 @@ apiInstance.getAllSenders(opts).then((data) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **offset** | **Number**| Number of records to skip | [optional] [default to 0]
- **limit** | **Number**| Maximum number of records to return | [optional] [default to 10]
- **search** | **String**| Search keyword to filter senders by name or email | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**[SenderResponse]**](SenderResponse.md)
+[**[RestRSender]**](RestRSender.md)
 
 ### Authorization
 
-[apiKeyAuth](../README.md#apiKeyAuth)
+[TeamApiKey](../README.md#TeamApiKey)
 
 ### HTTP request headers
 

@@ -1,9 +1,9 @@
 /**
  * SendX REST API
- * # Introduction SendX is an email marketing product. It helps you convert website visitors to customers, send them promotional emails, engage with them using drip sequences and craft custom journeys using powerful but simple automations. The SendX API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs. The SendX Rest API doesn’t support bulk updates. You can work on only one object per request. <br> 
+ * # SendX REST API Documentation  ## 🚀 Introduction  The SendX API is organized around REST principles. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.  **Key Features:** - 🔒 **Security**: Team-based authentication with optional member-level access - 🎯 **Resource-Oriented**: RESTful design with clear resource boundaries - 📊 **Rich Data Models**: Three-layer model system (Input/Output/Internal) - 🔗 **Relationships**: Automatic prefix handling for resource relationships - 📈 **Scalable**: Built for high-volume email marketing operations  ## 🏗️ Architecture Overview  SendX uses a three-layer model architecture:  1. **Input Models** (`RestE*`): For API requests 2. **Output Models** (`RestR*`): For API responses with prefixed IDs 3. **Internal Models**: Core business logic (not exposed in API)  ## 🔐 Security & Authentication  SendX uses API key authentication:  ### Team API Key ```http X-Team-ApiKey: YOUR_TEAM_API_KEY ``` - **Required for all requests** - Team-level access to resources - Available in SendX Settings → Team API Key  ## 🆔 Encrypted ID System  SendX uses encrypted IDs for security and better developer experience:  - **Internal IDs**: Sequential integers (not exposed) - **Encrypted IDs**: 22-character alphanumeric strings - **Prefixed IDs**: Resource-type prefixes in API responses (`contact_<22-char-id>`)  ### ID Format  **All resource IDs follow this pattern:** ``` <resource_prefix>_<22_character_alphanumeric_string> ```  **Example:** ```json {   \"id\": \"contact_BnKjkbBBS500CoBCP0oChQ\",   \"lists\": [\"list_OcuxJHdiAvujmwQVJfd3ss\", \"list_0tOFLp5RgV7s3LNiHrjGYs\"],   \"tags\": [\"tag_UhsDkjL772Qbj5lWtT62VK\", \"tag_fL7t9lsnZ9swvx2HrtQ9wM\"] } ```  ## 📚 Resource Prefixes  | Resource | Prefix | Example | |----------|--------|---------| | Contact | `contact_` | `contact_BnKjkbBBS500CoBCP0oChQ` | | Campaign | `campaign_` | `campaign_LUE9BTxmksSmqHWbh96zsn` | | List | `list_` | `list_OcuxJHdiAvujmwQVJfd3ss` | | Tag | `tag_` | `tag_UhsDkjL772Qbj5lWtT62VK` | | Sender | `sender_` | `sender_4vK3WFhMgvOwUNyaL4QxCD` | | Template | `template_` | `template_f3lJvTEhSjKGVb5Lwc5SWS` | | Custom Field | `field_` | `field_MnuqBAG2NPLm7PZMWbjQxt` | | Webhook | `webhook_` | `webhook_9l154iiXlZoPo7vngmamee` | | Post | `post_` | `post_XyZ123aBc456DeF789GhI` | | Post Category | `post_category_` | `post_category_YzS1wOU20yw87UUHKxMzwn` | | Post Tag | `post_tag_` | `post_tag_123XyZ456AbC` | | Member | `member_` | `member_JkL012MnO345PqR678` |  ## 🎯 Best Practices  ### Error Handling - **Always check status codes**: 2xx = success, 4xx = client error, 5xx = server error - **Read error messages**: Descriptive messages help debug issues - **Handle rate limits**: Respect API rate limits for optimal performance  ### Data Validation - **Email format**: Must be valid email addresses - **Required fields**: Check documentation for mandatory fields - **Field lengths**: Respect maximum length constraints  ### Performance - **Pagination**: Use offset/limit for large datasets - **Batch operations**: Process multiple items when supported - **Caching**: Cache responses when appropriate  ## 🛠️ SDKs & Integration  Official SDKs available for: - [Golang](https://github.com/sendx/sendx-go-sdk) - [Python](https://github.com/sendx/sendx-python-sdk) - [Ruby](https://github.com/sendx/sendx-ruby-sdk) - [Java](https://github.com/sendx/sendx-java-sdk) - [PHP](https://github.com/sendx/sendx-php-sdk) - [JavaScript](https://github.com/sendx/sendx-javascript-sdk)  ## 📞 Support  Need help? Contact us: - 💬 **Website Chat**: Available on sendx.io - 📧 **Email**: hello@sendx.io - 📚 **Documentation**: Full guides at help.sendx.io  ---  **API Endpoint:** `https://api.sendx.io/api/v1/rest`  [<img src=\"https://run.pstmn.io/button.svg\" alt=\"Run In Postman\" style=\"width: 128px; height: 32px;\">](https://god.gw.postman.com/run-collection/33476323-44b198b0-5219-4619-a01f-cfc24d573885?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33476323-44b198b0-5219-4619-a01f-cfc24d573885%26entityType%3Dcollection%26workspaceId%3D6b1e4f65-96a9-4136-9512-6266c852517e) 
  *
  * The version of the OpenAPI document: 1.0.0
- * Contact: support@sendx.io
+ * Contact: hello@sendx.io
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
  * https://openapi-generator.tech
@@ -22,7 +22,7 @@ class IdentifyRequest {
     /**
      * Constructs a new <code>IdentifyRequest</code>.
      * @alias module:sendx/model/IdentifyRequest
-     * @param email {String} Email address of the contact.
+     * @param email {String} 
      */
     constructor(email) { 
         
@@ -49,26 +49,26 @@ class IdentifyRequest {
         if (data) {
             obj = obj || new IdentifyRequest();
 
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
+            }
             if (data.hasOwnProperty('firstName')) {
                 obj['firstName'] = ApiClient.convertToType(data['firstName'], 'String');
             }
             if (data.hasOwnProperty('lastName')) {
                 obj['lastName'] = ApiClient.convertToType(data['lastName'], 'String');
             }
-            if (data.hasOwnProperty('email')) {
-                obj['email'] = ApiClient.convertToType(data['email'], 'String');
-            }
-            if (data.hasOwnProperty('newEmail')) {
-                obj['newEmail'] = ApiClient.convertToType(data['newEmail'], 'String');
-            }
             if (data.hasOwnProperty('company')) {
                 obj['company'] = ApiClient.convertToType(data['company'], 'String');
+            }
+            if (data.hasOwnProperty('customFields')) {
+                obj['customFields'] = ApiClient.convertToType(data['customFields'], {'String': 'String'});
             }
             if (data.hasOwnProperty('tags')) {
                 obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
             }
-            if (data.hasOwnProperty('customFields')) {
-                obj['customFields'] = ApiClient.convertToType(data['customFields'], {'String': 'String'});
+            if (data.hasOwnProperty('newEmail')) {
+                obj['newEmail'] = ApiClient.convertToType(data['newEmail'], 'String');
             }
         }
         return obj;
@@ -87,20 +87,16 @@ class IdentifyRequest {
             }
         }
         // ensure the json data is a string
+        if (data['email'] && !(typeof data['email'] === 'string' || data['email'] instanceof String)) {
+            throw new Error("Expected the field `email` to be a primitive type in the JSON string but got " + data['email']);
+        }
+        // ensure the json data is a string
         if (data['firstName'] && !(typeof data['firstName'] === 'string' || data['firstName'] instanceof String)) {
             throw new Error("Expected the field `firstName` to be a primitive type in the JSON string but got " + data['firstName']);
         }
         // ensure the json data is a string
         if (data['lastName'] && !(typeof data['lastName'] === 'string' || data['lastName'] instanceof String)) {
             throw new Error("Expected the field `lastName` to be a primitive type in the JSON string but got " + data['lastName']);
-        }
-        // ensure the json data is a string
-        if (data['email'] && !(typeof data['email'] === 'string' || data['email'] instanceof String)) {
-            throw new Error("Expected the field `email` to be a primitive type in the JSON string but got " + data['email']);
-        }
-        // ensure the json data is a string
-        if (data['newEmail'] && !(typeof data['newEmail'] === 'string' || data['newEmail'] instanceof String)) {
-            throw new Error("Expected the field `newEmail` to be a primitive type in the JSON string but got " + data['newEmail']);
         }
         // ensure the json data is a string
         if (data['company'] && !(typeof data['company'] === 'string' || data['company'] instanceof String)) {
@@ -110,42 +106,15 @@ class IdentifyRequest {
         if (!Array.isArray(data['tags'])) {
             throw new Error("Expected the field `tags` to be an array in the JSON data but got " + data['tags']);
         }
+        // ensure the json data is a string
+        if (data['newEmail'] && !(typeof data['newEmail'] === 'string' || data['newEmail'] instanceof String)) {
+            throw new Error("Expected the field `newEmail` to be a primitive type in the JSON string but got " + data['newEmail']);
+        }
 
         return true;
     }
 
 /**
-     * Returns First name of the contact.
-     * @return {String}
-     */
-    getFirstName() {
-        return this.firstName;
-    }
-
-    /**
-     * Sets First name of the contact.
-     * @param {String} firstName First name of the contact.
-     */
-    setFirstName(firstName) {
-        this['firstName'] = firstName;
-    }
-/**
-     * Returns Last name of the contact.
-     * @return {String}
-     */
-    getLastName() {
-        return this.lastName;
-    }
-
-    /**
-     * Sets Last name of the contact.
-     * @param {String} lastName Last name of the contact.
-     */
-    setLastName(lastName) {
-        this['lastName'] = lastName;
-    }
-/**
-     * Returns Email address of the contact.
      * @return {String}
      */
     getEmail() {
@@ -153,29 +122,38 @@ class IdentifyRequest {
     }
 
     /**
-     * Sets Email address of the contact.
-     * @param {String} email Email address of the contact.
+     * @param {String} email
      */
     setEmail(email) {
         this['email'] = email;
     }
 /**
-     * Returns New email address of the contact.
      * @return {String}
      */
-    getNewEmail() {
-        return this.newEmail;
+    getFirstName() {
+        return this.firstName;
     }
 
     /**
-     * Sets New email address of the contact.
-     * @param {String} newEmail New email address of the contact.
+     * @param {String} firstName
      */
-    setNewEmail(newEmail) {
-        this['newEmail'] = newEmail;
+    setFirstName(firstName) {
+        this['firstName'] = firstName;
     }
 /**
-     * Returns Company of the contact.
+     * @return {String}
+     */
+    getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * @param {String} lastName
+     */
+    setLastName(lastName) {
+        this['lastName'] = lastName;
+    }
+/**
      * @return {String}
      */
     getCompany() {
@@ -183,11 +161,23 @@ class IdentifyRequest {
     }
 
     /**
-     * Sets Company of the contact.
-     * @param {String} company Company of the contact.
+     * @param {String} company
      */
     setCompany(company) {
         this['company'] = company;
+    }
+/**
+     * @return {Object.<String, String>}
+     */
+    getCustomFields() {
+        return this.customFields;
+    }
+
+    /**
+     * @param {Object.<String, String>} customFields
+     */
+    setCustomFields(customFields) {
+        this['customFields'] = customFields;
     }
 /**
      * @return {Array.<String>}
@@ -203,17 +193,19 @@ class IdentifyRequest {
         this['tags'] = tags;
     }
 /**
-     * @return {Object.<String, String>}
+     * Returns New email when updating existing contact
+     * @return {String}
      */
-    getCustomFields() {
-        return this.customFields;
+    getNewEmail() {
+        return this.newEmail;
     }
 
     /**
-     * @param {Object.<String, String>} customFields
+     * Sets New email when updating existing contact
+     * @param {String} newEmail New email when updating existing contact
      */
-    setCustomFields(customFields) {
-        this['customFields'] = customFields;
+    setNewEmail(newEmail) {
+        this['newEmail'] = newEmail;
     }
 
 }
@@ -221,34 +213,29 @@ class IdentifyRequest {
 IdentifyRequest.RequiredProperties = ["email"];
 
 /**
- * First name of the contact.
- * @member {String} firstName
- */
-IdentifyRequest.prototype['firstName'] = undefined;
-
-/**
- * Last name of the contact.
- * @member {String} lastName
- */
-IdentifyRequest.prototype['lastName'] = undefined;
-
-/**
- * Email address of the contact.
  * @member {String} email
  */
 IdentifyRequest.prototype['email'] = undefined;
 
 /**
- * New email address of the contact.
- * @member {String} newEmail
+ * @member {String} firstName
  */
-IdentifyRequest.prototype['newEmail'] = undefined;
+IdentifyRequest.prototype['firstName'] = undefined;
 
 /**
- * Company of the contact.
+ * @member {String} lastName
+ */
+IdentifyRequest.prototype['lastName'] = undefined;
+
+/**
  * @member {String} company
  */
 IdentifyRequest.prototype['company'] = undefined;
+
+/**
+ * @member {Object.<String, String>} customFields
+ */
+IdentifyRequest.prototype['customFields'] = undefined;
 
 /**
  * @member {Array.<String>} tags
@@ -256,9 +243,10 @@ IdentifyRequest.prototype['company'] = undefined;
 IdentifyRequest.prototype['tags'] = undefined;
 
 /**
- * @member {Object.<String, String>} customFields
+ * New email when updating existing contact
+ * @member {String} newEmail
  */
-IdentifyRequest.prototype['customFields'] = undefined;
+IdentifyRequest.prototype['newEmail'] = undefined;
 
 
 

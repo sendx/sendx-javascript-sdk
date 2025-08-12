@@ -4,10 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**identifier** | **String** | Unique identifier for the contact. | 
-**amount** | **Number** | Recognized revenue amount associated with the event. | 
-**currency** | **String** | Currency code (ISO 4217) for the revenue (e.g., &#39;USD&#39;, &#39;EUR&#39;, &#39;INR&#39;). | 
-**source** | **String** | Source of the revenue (e.g., &#39;website&#39;, &#39;mobile app&#39;, &#39;partner referral&#39;). | 
-**time** | **Number** | Unix timestamp indicating when the revenue event occurred. | 
+**identifier** | **String** | Contact email address | [optional] 
+**amount** | **Number** | Revenue amount | 
+**source** | **String** | Source of the revenue event | [optional] 
+**time** | **Number** | Unix timestamp (in seconds since January 1, 1970) representing when the event occurred. | [optional] 
 
 

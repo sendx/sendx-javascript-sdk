@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** | Name of the custom event (e.g., &#39;abandoned_cart&#39;). | 
-**identifier** | **String** | Unique identifier for the contact (e.g., contact&#39;s email). | 
-**data** | **{String: String}** | Map of property-value pairs associated with the event, where both key and value are strings. | 
-**time** | **Number** | Unix timestamp of when the event occurred. | 
+**identifier** | **String** | This is the contact identifier. Contact id and email can be used interchangeably.  | [optional] 
+**name** | **String** | Event name | 
+**data** | **{String: Object}** | Event data | [optional] 
+**time** | **Number** | Unix timestamp (in seconds since January 1, 1970) representing when the event occurred. | [optional] 
 
 

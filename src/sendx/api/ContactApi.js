@@ -1,9 +1,9 @@
 /**
  * SendX REST API
- * # Introduction SendX is an email marketing product. It helps you convert website visitors to customers, send them promotional emails, engage with them using drip sequences and craft custom journeys using powerful but simple automations. The SendX API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs. The SendX Rest API doesn’t support bulk updates. You can work on only one object per request. <br> 
+ * # SendX REST API Documentation  ## 🚀 Introduction  The SendX API is organized around REST principles. Our API has predictable resource-oriented URLs, accepts JSON-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.  **Key Features:** - 🔒 **Security**: Team-based authentication with optional member-level access - 🎯 **Resource-Oriented**: RESTful design with clear resource boundaries - 📊 **Rich Data Models**: Three-layer model system (Input/Output/Internal) - 🔗 **Relationships**: Automatic prefix handling for resource relationships - 📈 **Scalable**: Built for high-volume email marketing operations  ## 🏗️ Architecture Overview  SendX uses a three-layer model architecture:  1. **Input Models** (`RestE*`): For API requests 2. **Output Models** (`RestR*`): For API responses with prefixed IDs 3. **Internal Models**: Core business logic (not exposed in API)  ## 🔐 Security & Authentication  SendX uses API key authentication:  ### Team API Key ```http X-Team-ApiKey: YOUR_TEAM_API_KEY ``` - **Required for all requests** - Team-level access to resources - Available in SendX Settings → Team API Key  ## 🆔 Encrypted ID System  SendX uses encrypted IDs for security and better developer experience:  - **Internal IDs**: Sequential integers (not exposed) - **Encrypted IDs**: 22-character alphanumeric strings - **Prefixed IDs**: Resource-type prefixes in API responses (`contact_<22-char-id>`)  ### ID Format  **All resource IDs follow this pattern:** ``` <resource_prefix>_<22_character_alphanumeric_string> ```  **Example:** ```json {   \"id\": \"contact_BnKjkbBBS500CoBCP0oChQ\",   \"lists\": [\"list_OcuxJHdiAvujmwQVJfd3ss\", \"list_0tOFLp5RgV7s3LNiHrjGYs\"],   \"tags\": [\"tag_UhsDkjL772Qbj5lWtT62VK\", \"tag_fL7t9lsnZ9swvx2HrtQ9wM\"] } ```  ## 📚 Resource Prefixes  | Resource | Prefix | Example | |----------|--------|---------| | Contact | `contact_` | `contact_BnKjkbBBS500CoBCP0oChQ` | | Campaign | `campaign_` | `campaign_LUE9BTxmksSmqHWbh96zsn` | | List | `list_` | `list_OcuxJHdiAvujmwQVJfd3ss` | | Tag | `tag_` | `tag_UhsDkjL772Qbj5lWtT62VK` | | Sender | `sender_` | `sender_4vK3WFhMgvOwUNyaL4QxCD` | | Template | `template_` | `template_f3lJvTEhSjKGVb5Lwc5SWS` | | Custom Field | `field_` | `field_MnuqBAG2NPLm7PZMWbjQxt` | | Webhook | `webhook_` | `webhook_9l154iiXlZoPo7vngmamee` | | Post | `post_` | `post_XyZ123aBc456DeF789GhI` | | Post Category | `post_category_` | `post_category_YzS1wOU20yw87UUHKxMzwn` | | Post Tag | `post_tag_` | `post_tag_123XyZ456AbC` | | Member | `member_` | `member_JkL012MnO345PqR678` |  ## 🎯 Best Practices  ### Error Handling - **Always check status codes**: 2xx = success, 4xx = client error, 5xx = server error - **Read error messages**: Descriptive messages help debug issues - **Handle rate limits**: Respect API rate limits for optimal performance  ### Data Validation - **Email format**: Must be valid email addresses - **Required fields**: Check documentation for mandatory fields - **Field lengths**: Respect maximum length constraints  ### Performance - **Pagination**: Use offset/limit for large datasets - **Batch operations**: Process multiple items when supported - **Caching**: Cache responses when appropriate  ## 🛠️ SDKs & Integration  Official SDKs available for: - [Golang](https://github.com/sendx/sendx-go-sdk) - [Python](https://github.com/sendx/sendx-python-sdk) - [Ruby](https://github.com/sendx/sendx-ruby-sdk) - [Java](https://github.com/sendx/sendx-java-sdk) - [PHP](https://github.com/sendx/sendx-php-sdk) - [JavaScript](https://github.com/sendx/sendx-javascript-sdk)  ## 📞 Support  Need help? Contact us: - 💬 **Website Chat**: Available on sendx.io - 📧 **Email**: hello@sendx.io - 📚 **Documentation**: Full guides at help.sendx.io  ---  **API Endpoint:** `https://api.sendx.io/api/v1/rest`  [<img src=\"https://run.pstmn.io/button.svg\" alt=\"Run In Postman\" style=\"width: 128px; height: 32px;\">](https://god.gw.postman.com/run-collection/33476323-44b198b0-5219-4619-a01f-cfc24d573885?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D33476323-44b198b0-5219-4619-a01f-cfc24d573885%26entityType%3Dcollection%26workspaceId%3D6b1e4f65-96a9-4136-9512-6266c852517e) 
  *
  * The version of the OpenAPI document: 1.0.0
- * Contact: support@sendx.io
+ * Contact: hello@sendx.io
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
  * https://openapi-generator.tech
@@ -13,9 +13,11 @@
 
 
 import ApiClient from "../ApiClient";
-import Contact from '../model/Contact';
-import ContactRequest from '../model/ContactRequest';
-import Response from '../model/Response';
+import DeleteResponse from '../model/DeleteResponse';
+import ErrorResponse from '../model/ErrorResponse';
+import MessageResponse from '../model/MessageResponse';
+import RestEContact from '../model/RestEContact';
+import RestRContact from '../model/RestRContact';
 
 /**
 * Contact service.
@@ -38,16 +40,16 @@ export default class ContactApi {
 
 
     /**
-     * Create a contact
-     * Create Contact with given data
-     * @param {module:sendx/model/ContactRequest} contactRequest 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Response} and HTTP response
+     * Create a new contact
+     * Creates a new contact in your SendX team with the provided information.  **🎯 Key Features:** - Email validation and duplicate detection - Automatic relationship building with lists and tags - Smart custom field handling  **📋 Business Rules:** - Email is mandatory and must be unique within the team - Last tracked IP is stored for analytics 
+     * @param {module:sendx/model/RestEContact} restEContact 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRContact} and HTTP response
      */
-    createContactWithHttpInfo(contactRequest) {
-      let postBody = contactRequest;
-      // verify the required parameter 'contactRequest' is set
-      if (contactRequest === undefined || contactRequest === null) {
-        throw new Error("Missing the required parameter 'contactRequest' when calling createContact");
+    createContactWithHttpInfo(restEContact) {
+      let postBody = restEContact;
+      // verify the required parameter 'restEContact' is set
+      if (restEContact === undefined || restEContact === null) {
+        throw new Error("Missing the required parameter 'restEContact' when calling createContact");
       }
 
       let pathParams = {
@@ -59,10 +61,10 @@ export default class ContactApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Response;
+      let returnType = RestRContact;
       return this.apiClient.callApi(
         '/contact', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -71,13 +73,13 @@ export default class ContactApi {
     }
 
     /**
-     * Create a contact
-     * Create Contact with given data
-     * @param {module:sendx/model/ContactRequest} contactRequest 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Response}
+     * Create a new contact
+     * Creates a new contact in your SendX team with the provided information.  **🎯 Key Features:** - Email validation and duplicate detection - Automatic relationship building with lists and tags - Smart custom field handling  **📋 Business Rules:** - Email is mandatory and must be unique within the team - Last tracked IP is stored for analytics 
+     * @param {module:sendx/model/RestEContact} restEContact 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRContact}
      */
-    createContact(contactRequest) {
-      return this.createContactWithHttpInfo(contactRequest)
+    createContact(restEContact) {
+      return this.createContactWithHttpInfo(restEContact)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -85,10 +87,10 @@ export default class ContactApi {
 
 
     /**
-     * Delete Contact
-     * Deletes Contact
-     * @param {String} identifier The Contact ID/ Email to delete
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Response} and HTTP response
+     * Delete contact
+     * Soft deletes a contact from your team.  **🎯 Key Features:** - Soft delete preserves data - Removes from all lists - Cancels pending campaigns - Maintains historical data 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/DeleteResponse} and HTTP response
      */
     deleteContactWithHttpInfo(identifier) {
       let postBody = null;
@@ -107,10 +109,10 @@ export default class ContactApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Response;
+      let returnType = DeleteResponse;
       return this.apiClient.callApi(
         '/contact/{identifier}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -119,10 +121,10 @@ export default class ContactApi {
     }
 
     /**
-     * Delete Contact
-     * Deletes Contact
-     * @param {String} identifier The Contact ID/ Email to delete
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Response}
+     * Delete contact
+     * Soft deletes a contact from your team.  **🎯 Key Features:** - Soft delete preserves data - Removes from all lists - Cancels pending campaigns - Maintains historical data 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/DeleteResponse}
      */
     deleteContact(identifier) {
       return this.deleteContactWithHttpInfo(identifier)
@@ -133,14 +135,13 @@ export default class ContactApi {
 
 
     /**
-     * Get All Contacts
-     * Find all contacts with optional filters
+     * Get all contacts
+     * Retrieves a paginated list of all contacts in your team with optional filtering capabilities.  **🎯 Key Features:** - Pagination support with offset/limit - Search contacts by name or email - All relationships included (lists, tags, custom fields) - Prefixed IDs for easy integration  **📊 Pagination:** - Default limit: 10 contacts per page - Maximum limit: 100 contacts per page - Use offset for page navigation  **🔍 Search:** - Searches across firstName, lastName, and email fields - Case-insensitive partial matching - Combine with pagination for large datasets 
      * @param {Object} opts Optional parameters
-     * @param {Number} [offset = 0)] Offset for pagination
-     * @param {Number} [limit = 10)] Limit for pagination
-     * @param {module:sendx/model/String} [contactType] Filter contacts by type
-     * @param {String} [search] Search term to filter contacts
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:sendx/model/Contact>} and HTTP response
+     * @param {Number} [offset = 0)] Number of records to skip for pagination.  **Examples:** - `0` - First page (default) - `50` - Second page (with limit=50) - `100` - Third page (with limit=50) 
+     * @param {Number} [limit = 50)] Maximum number of records to return.  **Constraints:** - Minimum: 1 - Maximum: 100 - Default: 10 
+     * @param {String} [search] Search term to filter contacts by name or email.  **Search Behavior:** - Searches firstName, lastName, and email fields - Case-insensitive partial matching - Minimum 2 characters for search  **Examples:** - `john` - Finds \"John Doe\", \"johnson@example.com\" - `@company.com` - Finds all emails from company.com - `smith` - Finds \"John Smith\", \"smith@email.com\" 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:sendx/model/RestRContact>} and HTTP response
      */
     getAllContactsWithHttpInfo(opts) {
       opts = opts || {};
@@ -151,7 +152,6 @@ export default class ContactApi {
       let queryParams = {
         'offset': opts['offset'],
         'limit': opts['limit'],
-        'contactType': opts['contactType'],
         'search': opts['search']
       };
       let headerParams = {
@@ -159,10 +159,10 @@ export default class ContactApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Contact];
+      let returnType = [RestRContact];
       return this.apiClient.callApi(
         '/contact', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -171,14 +171,13 @@ export default class ContactApi {
     }
 
     /**
-     * Get All Contacts
-     * Find all contacts with optional filters
+     * Get all contacts
+     * Retrieves a paginated list of all contacts in your team with optional filtering capabilities.  **🎯 Key Features:** - Pagination support with offset/limit - Search contacts by name or email - All relationships included (lists, tags, custom fields) - Prefixed IDs for easy integration  **📊 Pagination:** - Default limit: 10 contacts per page - Maximum limit: 100 contacts per page - Use offset for page navigation  **🔍 Search:** - Searches across firstName, lastName, and email fields - Case-insensitive partial matching - Combine with pagination for large datasets 
      * @param {Object} opts Optional parameters
-     * @param {Number} opts.offset Offset for pagination (default to 0)
-     * @param {Number} opts.limit Limit for pagination (default to 10)
-     * @param {module:sendx/model/String} opts.contactType Filter contacts by type
-     * @param {String} opts.search Search term to filter contacts
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:sendx/model/Contact>}
+     * @param {Number} opts.offset Number of records to skip for pagination.  **Examples:** - `0` - First page (default) - `50` - Second page (with limit=50) - `100` - Third page (with limit=50)  (default to 0)
+     * @param {Number} opts.limit Maximum number of records to return.  **Constraints:** - Minimum: 1 - Maximum: 100 - Default: 10  (default to 50)
+     * @param {String} opts.search Search term to filter contacts by name or email.  **Search Behavior:** - Searches firstName, lastName, and email fields - Case-insensitive partial matching - Minimum 2 characters for search  **Examples:** - `john` - Finds \"John Doe\", \"johnson@example.com\" - `@company.com` - Finds all emails from company.com - `smith` - Finds \"John Smith\", \"smith@email.com\" 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:sendx/model/RestRContact>}
      */
     getAllContacts(opts) {
       return this.getAllContactsWithHttpInfo(opts)
@@ -189,16 +188,16 @@ export default class ContactApi {
 
 
     /**
-     * Get Contact by Identifier
-     * Retrieve a specific contact by its identifier.
-     * @param {String} identifier The ID or Email of the contact to retrieve.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Contact} and HTTP response
+     * Get contact by ID
+     * Retrieves detailed information about a specific contact.  **🎯 Key Features:** - Returns complete contact profile - Includes all lists and tags - Shows custom field values - Provides engagement metrics 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRContact} and HTTP response
      */
-    getContactByIdWithHttpInfo(identifier) {
+    getContactWithHttpInfo(identifier) {
       let postBody = null;
       // verify the required parameter 'identifier' is set
       if (identifier === undefined || identifier === null) {
-        throw new Error("Missing the required parameter 'identifier' when calling getContactById");
+        throw new Error("Missing the required parameter 'identifier' when calling getContact");
       }
 
       let pathParams = {
@@ -211,10 +210,10 @@ export default class ContactApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Contact;
+      let returnType = RestRContact;
       return this.apiClient.callApi(
         '/contact/{identifier}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -223,13 +222,13 @@ export default class ContactApi {
     }
 
     /**
-     * Get Contact by Identifier
-     * Retrieve a specific contact by its identifier.
-     * @param {String} identifier The ID or Email of the contact to retrieve.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Contact}
+     * Get contact by ID
+     * Retrieves detailed information about a specific contact.  **🎯 Key Features:** - Returns complete contact profile - Includes all lists and tags - Shows custom field values - Provides engagement metrics 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRContact}
      */
-    getContactById(identifier) {
-      return this.getContactByIdWithHttpInfo(identifier)
+    getContact(identifier) {
+      return this.getContactWithHttpInfo(identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -237,10 +236,10 @@ export default class ContactApi {
 
 
     /**
-     * Unsubscribe Contact
-     * Unsubscribe a globally existing contact
-     * @param {String} identifier The Contact ID or email to unsubscribe
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Response} and HTTP response
+     * Unsubscribe contact
+     * Unsubscribes a contact from all marketing communications.  **🎯 Key Features:** - Marks contact as unsubscribed - Removes from all active campaigns - Maintains unsubscribe history - Complies with anti-spam regulations 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/MessageResponse} and HTTP response
      */
     unsubscribeContactWithHttpInfo(identifier) {
       let postBody = null;
@@ -259,10 +258,10 @@ export default class ContactApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Response;
+      let returnType = MessageResponse;
       return this.apiClient.callApi(
         '/contact/unsubscribe/{identifier}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -271,10 +270,10 @@ export default class ContactApi {
     }
 
     /**
-     * Unsubscribe Contact
-     * Unsubscribe a globally existing contact
-     * @param {String} identifier The Contact ID or email to unsubscribe
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Response}
+     * Unsubscribe contact
+     * Unsubscribes a contact from all marketing communications.  **🎯 Key Features:** - Marks contact as unsubscribed - Removes from all active campaigns - Maintains unsubscribe history - Complies with anti-spam regulations 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/MessageResponse}
      */
     unsubscribeContact(identifier) {
       return this.unsubscribeContactWithHttpInfo(identifier)
@@ -285,17 +284,17 @@ export default class ContactApi {
 
 
     /**
-     * Update Contact
-     * Update Contact with given data
-     * @param {module:sendx/model/ContactRequest} contactRequest 
-     * @param {String} identifier The ID or email of the Contact to update
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/Contact} and HTTP response
+     * Update contact
+     * Updates an existing contact's information.  **🎯 Key Features:** - Partial updates supported - Add/remove lists and tags - Update custom fields - Change email address 
+     * @param {module:sendx/model/RestEContact} restEContact 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRContact} and HTTP response
      */
-    updateContactWithHttpInfo(contactRequest, identifier) {
-      let postBody = contactRequest;
-      // verify the required parameter 'contactRequest' is set
-      if (contactRequest === undefined || contactRequest === null) {
-        throw new Error("Missing the required parameter 'contactRequest' when calling updateContact");
+    updateContactWithHttpInfo(restEContact, identifier) {
+      let postBody = restEContact;
+      // verify the required parameter 'restEContact' is set
+      if (restEContact === undefined || restEContact === null) {
+        throw new Error("Missing the required parameter 'restEContact' when calling updateContact");
       }
       // verify the required parameter 'identifier' is set
       if (identifier === undefined || identifier === null) {
@@ -312,10 +311,10 @@ export default class ContactApi {
       let formParams = {
       };
 
-      let authNames = ['apiKeyAuth'];
+      let authNames = ['TeamApiKey'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Contact;
+      let returnType = RestRContact;
       return this.apiClient.callApi(
         '/contact/{identifier}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -324,14 +323,14 @@ export default class ContactApi {
     }
 
     /**
-     * Update Contact
-     * Update Contact with given data
-     * @param {module:sendx/model/ContactRequest} contactRequest 
-     * @param {String} identifier The ID or email of the Contact to update
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/Contact}
+     * Update contact
+     * Updates an existing contact's information.  **🎯 Key Features:** - Partial updates supported - Add/remove lists and tags - Update custom fields - Change email address 
+     * @param {module:sendx/model/RestEContact} restEContact 
+     * @param {String} identifier Resource identifier with prefix (e.g., `contact_BnKjkbBBS500CoBCP0oChQ`)  **Format:** `<prefix>_<22-character-id>` 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRContact}
      */
-    updateContact(contactRequest, identifier) {
-      return this.updateContactWithHttpInfo(contactRequest, identifier)
+    updateContact(restEContact, identifier) {
+      return this.updateContactWithHttpInfo(restEContact, identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

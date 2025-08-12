@@ -259,7 +259,7 @@ class CampaignRequest {
     }
 /**
      * Returns The type of scheduling for the campaign <br> 0: Send Now <br> 1: Send Later 
-     * @return {module:sendx/model/CampaignRequest.ScheduleTypeEnum}
+     * @return {Number}
      */
     getScheduleType() {
         return this.scheduleType;
@@ -267,7 +267,7 @@ class CampaignRequest {
 
     /**
      * Sets The type of scheduling for the campaign <br> 0: Send Now <br> 1: Send Later 
-     * @param {module:sendx/model/CampaignRequest.ScheduleTypeEnum} scheduleType The type of scheduling for the campaign <br> 0: Send Now <br> 1: Send Later 
+     * @param {Number} scheduleType The type of scheduling for the campaign <br> 0: Send Now <br> 1: Send Later 
      */
     setScheduleType(scheduleType) {
         this['scheduleType'] = scheduleType;
@@ -504,7 +504,7 @@ CampaignRequest.prototype['previewText'] = undefined;
 
 /**
  * The type of scheduling for the campaign <br> 0: Send Now <br> 1: Send Later 
- * @member {module:sendx/model/CampaignRequest.ScheduleTypeEnum} scheduleType
+ * @member {Number} scheduleType
  */
 CampaignRequest.prototype['scheduleType'] = undefined;
 
@@ -588,27 +588,6 @@ CampaignRequest.prototype['excludedTags'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>scheduleType</code> property.
- * @enum {Number}
- * @readonly
- */
-CampaignRequest['ScheduleTypeEnum'] = {
-
-    /**
-     * value: 0
-     * @const
-     */
-    "0": 0,
-
-    /**
-     * value: 1
-     * @const
-     */
-    "1": 1
-};
 
 
 

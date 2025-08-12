@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email** | **String** | Email address of the contact to track. | [optional] 
-**addTags** | **[String]** |  | [optional] 
-**removeTags** | **[String]** |  | [optional] 
+**addTags** | **[String]** | Tags to add to contact | [optional] 
+**removeTags** | **[String]** | Tags to remove from contact | [optional] 
+**email** | **String** | Email address of the contact | [optional] 
 
 

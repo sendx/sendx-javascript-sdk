@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**success** | **Boolean** |  | [optional] 
+**status** | **String** |  | [optional] 
 **message** | **String** |  | [optional] 
 
 

@@ -59,7 +59,6 @@ docs/TrackRequest.md
 docs/TrackResponse.md
 docs/TrackingApi.md
 docs/WebhookApi.md
-docs/WebhookApi.md
 docs/WebhookObject.md
 docs/XAttachment.md
 docs/XEmailMessage.md
@@ -87,7 +86,6 @@ src/sendx/api/TagApi.js
 src/sendx/api/TeamMemberApi.js
 src/sendx/api/TemplateApi.js
 src/sendx/api/TrackingApi.js
-src/sendx/api/WebhookApi.js
 src/sendx/api/WebhookApi.js
 src/sendx/index.js
 src/sendx/model/CustomEventRequest.js

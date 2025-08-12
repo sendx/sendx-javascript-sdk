@@ -11,93 +11,54 @@
  *
  */
 
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD.
-    define(['expect.js', process.cwd()+'/src/sendx/index'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    factory(require('expect.js'), require(process.cwd()+'/src/sendx/index'));
-  } else {
-    // Browser globals (root is window)
-    factory(root.expect, root.sendx);
-  }
-}(this, function(expect, sendx) {
-  'use strict';
+const expect = require('expect.js');
+const sendx = require('../../../src/index');
 
-  var instance;
+describe('CampaignApi', function() {
+  let instance;
 
   beforeEach(function() {
     instance = new sendx.CampaignApi();
   });
 
-  var getProperty = function(object, getter, property) {
-    // Use getter method if present; otherwise, get the property directly.
-    if (typeof object[getter] === 'function')
-      return object[getter]();
-    else
-      return object[property];
-  }
-
-  var setProperty = function(object, setter, property, value) {
-    // Use setter method if present; otherwise, set the property directly.
-    if (typeof object[setter] === 'function')
-      object[setter](value);
-    else
-      object[property] = value;
-  }
-
-  describe('CampaignApi', function() {
-    describe('createCampaign', function() {
-      it('should call createCampaign successfully', function(done) {
-        //uncomment below and update the code to test createCampaign
-        //instance.createCampaign(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('deleteCampaign', function() {
-      it('should call deleteCampaign successfully', function(done) {
-        //uncomment below and update the code to test deleteCampaign
-        //instance.deleteCampaign(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('editCampaign', function() {
-      it('should call editCampaign successfully', function(done) {
-        //uncomment below and update the code to test editCampaign
-        //instance.editCampaign(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('getAllCampaigns', function() {
-      it('should call getAllCampaigns successfully', function(done) {
-        //uncomment below and update the code to test getAllCampaigns
-        //instance.getAllCampaigns(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('getCampaignById', function() {
-      it('should call getCampaignById successfully', function(done) {
-        //uncomment below and update the code to test getCampaignById
-        //instance.getCampaignById(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
+  describe('createCampaign', function() {
+    it('should call createCampaign successfully', function(done) {
+      //uncomment below and update the code to test createCampaign
+      //instance.createCampaign(function(error) {
+      //  if (error) throw error;
+      //expect().to.be();
+      //});
+      done();
     });
   });
-
-}));
+  describe('deleteCampaign', function() {
+    it('should call deleteCampaign successfully', function(done) {
+      //uncomment below and update the code to test deleteCampaign
+      //instance.deleteCampaign(function(error) {
+      //  if (error) throw error;
+      //expect().to.be();
+      //});
+      done();
+    });
+  });
+  describe('getAllCampaigns', function() {
+    it('should call getAllCampaigns successfully', function(done) {
+      //uncomment below and update the code to test getAllCampaigns
+      //instance.getAllCampaigns(function(error) {
+      //  if (error) throw error;
+      //expect().to.be();
+      //});
+      done();
+    });
+  });
+  describe('getCampaign', function() {
+    it('should call getCampaign successfully', function(done) {
+      //uncomment below and update the code to test getCampaign
+      //instance.getCampaign(function(error) {
+      //  if (error) throw error;
+      //expect().to.be();
+      //});
+      done();
+    });
+  });
+});

@@ -63,6 +63,9 @@ class RestRCampaign {
         if (data) {
             obj = obj || new RestRCampaign();
 
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -152,6 +155,10 @@ class RestRCampaign {
             }
         }
         // ensure the json data is a string
+        if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
+            throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
+        }
+        // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
         }
@@ -227,6 +234,21 @@ class RestRCampaign {
         return true;
     }
 
+/**
+     * Returns Encrypted ID of the campaign
+     * @return {String}
+     */
+    getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets Encrypted ID of the campaign
+     * @param {String} id Encrypted ID of the campaign
+     */
+    setId(id) {
+        this['id'] = id;
+    }
 /**
      * Returns Internal campaign name
      * @return {String}
@@ -587,6 +609,12 @@ class RestRCampaign {
 }
 
 RestRCampaign.RequiredProperties = ["name", "subject", "sender", "scheduleTime", "scheduleType", "scheduleCondition", "includedLists", "excludedLists"];
+
+/**
+ * Encrypted ID of the campaign
+ * @member {String} id
+ */
+RestRCampaign.prototype['id'] = undefined;
 
 /**
  * Internal campaign name

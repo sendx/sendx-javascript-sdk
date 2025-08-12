@@ -13,7 +13,10 @@
 
 
 import ApiClient from "../ApiClient";
-import WebhookObject from '../model/WebhookObject';
+import DeleteResponse from '../model/DeleteResponse';
+import ErrorResponse from '../model/ErrorResponse';
+import RestEWebhook from '../model/RestEWebhook';
+import RestRWebhook from '../model/RestRWebhook';
 
 /**
 * Webhook service.
@@ -36,14 +39,17 @@ export default class WebhookApi {
 
 
     /**
-     * SendX Webhook Object
-     * Every event generated as SendX webhook will have <code>type</code> field in event object:  Webhook Event | Type Field Value  -----------|------------------ Unsubscribed | 73 Marked Spam | 6 Mail Opened  | 7 Link Clicked | 8 Mail Bounced | 58 Mail Dropped | 60 
-     * @param {Object} opts Optional parameters
-     * @param {} [webhookObject] 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * Create webhook
+     * Creates a new webhook for event notifications. 
+     * @param {module:sendx/model/RestEWebhook} restEWebhook 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRWebhook} and HTTP response
      */
-    sendXWebhooksPostWithHttpInfo() {
-      let postBody = opts['webhookObject'];
+    createWebhookWithHttpInfo(restEWebhook) {
+      let postBody = restEWebhook;
+      // verify the required parameter 'restEWebhook' is set
+      if (restEWebhook === undefined || restEWebhook === null) {
+        throw new Error("Missing the required parameter 'restEWebhook' when calling createWebhook");
+      }
 
       let pathParams = {
       };
@@ -56,24 +62,214 @@ export default class WebhookApi {
 
       let authNames = ['TeamApiKey'];
       let contentTypes = ['application/json'];
-      let accepts = [];
-      let returnType = null;
+      let accepts = ['application/json'];
+      let returnType = RestRWebhook;
       return this.apiClient.callApi(
-        '/SendXWebhooks', 'POST',
+        '/webhook', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * SendX Webhook Object
-     * Every event generated as SendX webhook will have <code>type</code> field in event object:  Webhook Event | Type Field Value  -----------|------------------ Unsubscribed | 73 Marked Spam | 6 Mail Opened  | 7 Link Clicked | 8 Mail Bounced | 58 Mail Dropped | 60 
-     * @param {Object} opts Optional parameters
-     * @param {} opts.webhookObject 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Create webhook
+     * Creates a new webhook for event notifications. 
+     * @param {module:sendx/model/RestEWebhook} restEWebhook 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRWebhook}
      */
-    sendXWebhooksPost() {
-      return this.sendXWebhooksPostWithHttpInfo()
+    createWebhook(restEWebhook) {
+      return this.createWebhookWithHttpInfo(restEWebhook)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete webhook
+     * Deletes a webhook configuration.  **🎯 Key Features:** - Remove webhooks - Stop event delivery - Clean up endpoints 
+     * @param {String} identifier Webhook identifier to update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/DeleteResponse} and HTTP response
+     */
+    deleteWebhookWithHttpInfo(identifier) {
+      let postBody = null;
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling deleteWebhook");
+      }
+
+      let pathParams = {
+        'identifier': identifier
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['TeamApiKey'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = DeleteResponse;
+      return this.apiClient.callApi(
+        '/webhook/{identifier}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Delete webhook
+     * Deletes a webhook configuration.  **🎯 Key Features:** - Remove webhooks - Stop event delivery - Clean up endpoints 
+     * @param {String} identifier Webhook identifier to update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/DeleteResponse}
+     */
+    deleteWebhook(identifier) {
+      return this.deleteWebhookWithHttpInfo(identifier)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Get all webhooks
+     * Retrieves all configured webhooks. 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:sendx/model/RestRWebhook>} and HTTP response
+     */
+    getAllWebhooksWithHttpInfo() {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['TeamApiKey'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [RestRWebhook];
+      return this.apiClient.callApi(
+        '/webhook', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Get all webhooks
+     * Retrieves all configured webhooks. 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:sendx/model/RestRWebhook>}
+     */
+    getAllWebhooks() {
+      return this.getAllWebhooksWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Get webhook by ID
+     * Retrieves details about a specific webhook. 
+     * @param {String} identifier Webhook identifier to retrieve
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRWebhook} and HTTP response
+     */
+    getWebhookWithHttpInfo(identifier) {
+      let postBody = null;
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling getWebhook");
+      }
+
+      let pathParams = {
+        'identifier': identifier
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['TeamApiKey'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = RestRWebhook;
+      return this.apiClient.callApi(
+        '/webhook/{identifier}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Get webhook by ID
+     * Retrieves details about a specific webhook. 
+     * @param {String} identifier Webhook identifier to retrieve
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRWebhook}
+     */
+    getWebhook(identifier) {
+      return this.getWebhookWithHttpInfo(identifier)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Update webhook
+     * Updates webhook configuration. 
+     * @param {module:sendx/model/RestEWebhook} restEWebhook 
+     * @param {String} identifier Webhook identifier to update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:sendx/model/RestRWebhook} and HTTP response
+     */
+    updateWebhookWithHttpInfo(restEWebhook, identifier) {
+      let postBody = restEWebhook;
+      // verify the required parameter 'restEWebhook' is set
+      if (restEWebhook === undefined || restEWebhook === null) {
+        throw new Error("Missing the required parameter 'restEWebhook' when calling updateWebhook");
+      }
+      // verify the required parameter 'identifier' is set
+      if (identifier === undefined || identifier === null) {
+        throw new Error("Missing the required parameter 'identifier' when calling updateWebhook");
+      }
+
+      let pathParams = {
+        'identifier': identifier
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['TeamApiKey'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = RestRWebhook;
+      return this.apiClient.callApi(
+        '/webhook/{identifier}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Update webhook
+     * Updates webhook configuration. 
+     * @param {module:sendx/model/RestEWebhook} restEWebhook 
+     * @param {String} identifier Webhook identifier to update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:sendx/model/RestRWebhook}
+     */
+    updateWebhook(restEWebhook, identifier) {
+      return this.updateWebhookWithHttpInfo(restEWebhook, identifier)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **String** | Encrypted ID of the campaign | [optional] 
 **name** | **String** | Internal campaign name | 
 **subject** | **String** | Email subject line | 
 **preheader** | **String** | Email preview text | [optional] 

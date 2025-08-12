@@ -47,8 +47,8 @@ class EventResponse {
         if (data) {
             obj = obj || new EventResponse();
 
-            if (data.hasOwnProperty('success')) {
-                obj['success'] = ApiClient.convertToType(data['success'], 'Boolean');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
             if (data.hasOwnProperty('message')) {
                 obj['message'] = ApiClient.convertToType(data['message'], 'String');
@@ -64,6 +64,10 @@ class EventResponse {
      */
     static validateJSON(data) {
         // ensure the json data is a string
+        if (data['status'] && !(typeof data['status'] === 'string' || data['status'] instanceof String)) {
+            throw new Error("Expected the field `status` to be a primitive type in the JSON string but got " + data['status']);
+        }
+        // ensure the json data is a string
         if (data['message'] && !(typeof data['message'] === 'string' || data['message'] instanceof String)) {
             throw new Error("Expected the field `message` to be a primitive type in the JSON string but got " + data['message']);
         }
@@ -72,17 +76,17 @@ class EventResponse {
     }
 
 /**
-     * @return {Boolean}
+     * @return {String}
      */
-    getSuccess() {
-        return this.success;
+    getStatus() {
+        return this.status;
     }
 
     /**
-     * @param {Boolean} success
+     * @param {String} status
      */
-    setSuccess(success) {
-        this['success'] = success;
+    setStatus(status) {
+        this['status'] = status;
     }
 /**
      * @return {String}
@@ -103,9 +107,9 @@ class EventResponse {
 
 
 /**
- * @member {Boolean} success
+ * @member {String} status
  */
-EventResponse.prototype['success'] = undefined;
+EventResponse.prototype['status'] = undefined;
 
 /**
  * @member {String} message
